@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
     @RequestMapping("/user")
-    public User userHome(@RequestParam(value="name", defaultValue="World") String name) {
-        return new User("test user",  String.format("%s", name));
+    public User userHome(@RequestParam(value="name", defaultValue="superuser") String name) {
+        return new User("A default nickname",  name);
     }
 }
