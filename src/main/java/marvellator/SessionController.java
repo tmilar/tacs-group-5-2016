@@ -1,4 +1,4 @@
-package controllers;
+package marvellator;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,11 +10,11 @@ public class SessionController {
     /* API */
     @RequestMapping(value="api/login",method= RequestMethod.POST)
     public String login() {
-        return "User logged in";
+        return "marvellator.User logged in";
     }
     @RequestMapping(value="api/logout",method= RequestMethod.POST)
     public String logout() {
-        return "User signed out";
+        return "marvellator.User signed out";
     }
 
     /* FRONT END */
