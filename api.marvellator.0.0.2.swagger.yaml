@@ -67,7 +67,7 @@ paths:
          in: header
          type: string
          format: int32
-         description: 'User session id'
+         description: 'marvellator.User session id'
          required: true
      responses:
        '200':
@@ -139,23 +139,23 @@ paths:
            $ref: '#/definitions/Error'
  /me:
    get:
-     summary: User Profile
-     description: The User Profile endpoint returns information about the Uber user that has authorized with the application.
+     summary: marvellator.User Profile
+     description: The marvellator.User Profile endpoint returns information about the Uber user that has authorized with the application.
      tags:
-       - User
+       - marvellator.User
      responses:
        '200':
          description: Profile information for a user
          schema:
-           $ref: '#/definitions/User'
+           $ref: '#/definitions/marvellator.User'
        default:
          description: Unexpected error
          schema:
            $ref: '#/definitions/Error'
  /history:
    get:
-     summary: User Activity
-     description: "The User Activity endpoint returns data about a user's lifetime activity with Uber. The response will include pickup locations and times, dropoff locations and times, the distance of past requests, and information about which products were requested.<br><br>The history array in the response will have a maximum length based on the limit parameter. The response value count may exceed limit, therefore subsequent API requests may be necessary."
+     summary: marvellator.User Activity
+     description: "The marvellator.User Activity endpoint returns data about a user's lifetime activity with Uber. The response will include pickup locations and times, dropoff locations and times, the distance of past requests, and information about which products were requested.<br><br>The history array in the response will have a maximum length based on the limit parameter. The response value count may exceed limit, therefore subsequent API requests may be necessary."
      parameters:
        - name: offset
          in: query
@@ -168,7 +168,7 @@ paths:
          format: int32
          description: 'Number of items to retrieve. Default is 5, maximum is 100.'
      tags:
-       - User
+       - marvellator.User
      responses:
        '200':
          description: History information for the given user
@@ -179,7 +179,7 @@ paths:
          schema:
            $ref: '#/definitions/Error'
 definitions:
- User:
+ marvellator.User:
    type: object
    properties:
      username:
