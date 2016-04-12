@@ -27,7 +27,7 @@
   <!.. ..> that surrounds them.
 -->
 <!--
-If you wish to use the Manager Application to deploy and undeploy applications in a running Tomcat installation, you MUST add the "manager-gui" role to at least one username in your selected Realm implementation. This is because the manager web application itself uses a security constraint that requires role "manager-gui" to access ANY request URI within the HTML interface of that application.
+If you wish to use the Manager marvellator.Application to deploy and undeploy applications in a running Tomcat installation, you MUST add the "manager-gui" role to at least one username in your selected Realm implementation. This is because the manager web application itself uses a security constraint that requires role "manager-gui" to access ANY request URI within the HTML interface of that application.
 
 For security reasons, no username in the default Realm (i.e. using conf/tomcat-users.xml is assigned the "manager-gui" role. Therefore, no one will be able to utilize the features of this application until the Tomcat administrator specifically assigns this role to one or more users.
 -->
