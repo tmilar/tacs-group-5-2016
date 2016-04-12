@@ -3,7 +3,7 @@ info:
  title: Marvellator API
  description: Marvellator TACS TP application - API documentation
  version: 1.0.0
-host: marvellator.com
+host:  com
 schemes:
  - https
 basePath: /api
@@ -27,7 +27,7 @@ paths:
         schema:
           type: array
           items:
-            $ref: '#/definitions/Character'
+          $ref: '#/definitions/Character'
       default:
         description: Unexpected error
         schema:
@@ -45,7 +45,7 @@ paths:
          schema:
            type: array
            items:
-             $ref: '#/definitions/Character'
+           $ref: '#/definitions/Character'
        default:
          description: Unexpected error
          schema:
@@ -67,7 +67,7 @@ paths:
          in: header
          type: string
          format: int32
-         description: 'marvellator.User session id'
+         description: 'User session id'
          required: true
      responses:
        '200':
@@ -75,7 +75,7 @@ paths:
          schema:
            type: array
            items:
-             $ref: '#/definitions/Character'
+           $ref: '#/definitions/Character'
        default:
          description: Unexpected error
          schema:
@@ -93,7 +93,7 @@ paths:
          schema:
            type: array
            items:
-             $ref: '#/definitions/PriceEstimate'
+           $ref: '#/definitions/PriceEstimate'
        default:
          description: Unexpected error
          schema:
@@ -132,30 +132,30 @@ paths:
          schema:
            type: array
            items:
-             $ref: '#/definitions/Product'
+           $ref: '#/definitions/Product'
        default:
          description: Unexpected error
          schema:
            $ref: '#/definitions/Error'
  /me:
    get:
-     summary: marvellator.User Profile
-     description: The marvellator.User Profile endpoint returns information about the Uber user that has authorized with the application.
+     summary:  User Profile
+     description: The  User Profile endpoint returns information about the Uber user that has authorized with the application.
      tags:
-       - marvellator.User
+       -  User
      responses:
        '200':
          description: Profile information for a user
          schema:
-           $ref: '#/definitions/marvellator.User'
+           $ref: '#/definitions/User'
        default:
          description: Unexpected error
          schema:
            $ref: '#/definitions/Error'
  /history:
    get:
-     summary: marvellator.User Activity
-     description: "The marvellator.User Activity endpoint returns data about a user's lifetime activity with Uber. The response will include pickup locations and times, dropoff locations and times, the distance of past requests, and information about which products were requested.<br><br>The history array in the response will have a maximum length based on the limit parameter. The response value count may exceed limit, therefore subsequent API requests may be necessary."
+     summary:  User Activity
+     description: "The  User Activity endpoint returns data about a user's lifetime activity with Uber. The response will include pickup locations and times, dropoff locations and times, the distance of past requests, and information about which products were requested.<br><br>The history array in the response will have a maximum length based on the limit parameter. The response value count may exceed limit, therefore subsequent API requests may be necessary."
      parameters:
        - name: offset
          in: query
@@ -168,7 +168,7 @@ paths:
          format: int32
          description: 'Number of items to retrieve. Default is 5, maximum is 100.'
      tags:
-       - marvellator.User
+       -  User
      responses:
        '200':
          description: History information for the given user
@@ -179,7 +179,7 @@ paths:
          schema:
            $ref: '#/definitions/Error'
 definitions:
- marvellator.User:
+  User:
    type: object
    properties:
      username:
@@ -192,22 +192,22 @@ definitions:
        type: array
        description: List of user favorite characters
        items:
-         $ref: '#/definitions/Character'
- Character:
-  type: object
-  properties:
-     _id:
-       type: string
-       description: Unique identifier representing a specific product for a given latitude & longitude. For example, MarvelX in San Francisco will have a different product_id than MarvelX in Los Angeles.
-     $url:
-       type: string
-       description: External Marvel API URL of the character.
-     name:
-       type: string
-       description: Display name of the character.
- Group:
-  type: object
-  properties:
+       $ref: '#/definitions/Character'
+  Character:
+    type: object
+    properties:
+    _id:
+      type: string
+      description: Unique identifier representing a specific product for a given latitude & longitude. For example, MarvelX in San Francisco will have a different product_id than MarvelX in Los Angeles.
+    $url:
+      type: string
+      description: External Marvel API URL of the character.
+    name:
+      type: string
+      description: Display name of the character.
+  Group:
+    type: object
+    properties:
     _id:
       type: string
       description: 'Unique identifier representing a specific Group which contains Marvel characters'
@@ -217,8 +217,8 @@ definitions:
     characters:
       type: array
       items:
-       $ref: "#/definitions/Character"
- Error:
+      $ref: "#/definitions/Character"
+  Error:
    type: object
    properties:
      code:
