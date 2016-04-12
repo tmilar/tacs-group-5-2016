@@ -6,18 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class marvellator.UserController {
     *//* API *//*
-    @RequestMapping(value="/user")
-    public marvellator.User userHome(@RequestParam(value="name", defaultValue="superuser") String name) {
-        return new marvellator.User("A default nickname",  name);
-    }
-    @RequestMapping(value="api/user",method= RequestMethod.POST)
-    public String userSignUp() {
-        return "marvellator.User registered!";
-    }
-    @RequestMapping(value="api/users",method= RequestMethod.GET)
-    public String users() {
-        return "List of users";
-    }
+
     @RequestMapping(value="api/users/{id}/favs",method= RequestMethod.GET)
     public String usersFavorites(@PathVariable int id) {
         return "List of users' favorites";
@@ -47,24 +36,32 @@ public class marvellator.UserController {
 }*/
 
 import org.springframework.stereotype.Controller;
-        import org.springframework.ui.Model;
-        import org.springframework.web.bind.annotation.ModelAttribute;
-        import org.springframework.web.bind.annotation.RequestMapping;
-        import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
 
-    @RequestMapping(value="/user", method=RequestMethod.GET)
-    public String greetingForm(Model model) {
-        model.addAttribute("user", new User("name", "username"));
-        return "user";
+    /* @RequestMapping(value="/user", method=RequestMethod.GET)
+     public String greetingForm(Model model) {
+         model.addAttribute("user", new User("name", "username"));
+         return "user";
+     }*/
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public User userHome(@RequestParam(value = "name", defaultValue = "A default name :)") String name) {
+        return new User("A default nickname. We will only be receiving a userName. It is: ", name);
     }
 
-    @RequestMapping(value="/user", method=RequestMethod.POST)
-    public String greetingSubmit(@ModelAttribute User user, Model model) {
-        model.addAttribute("user", user);
-        return "result";
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public User userSignUp() {
+        return new User("This is a default nickname, we are making a static response :) ", "A cute static name");
+    }
+    @RequestMapping(value="/users",method= RequestMethod.GET)
+    public User users(@RequestParam(value = "id", defaultValue = "A cute static id ") String name) {
+        return new User("This is a default id, we are making a static response :) ", name);
     }
 
 }
