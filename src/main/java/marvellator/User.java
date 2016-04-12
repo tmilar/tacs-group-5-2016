@@ -1,4 +1,5 @@
-package model;
+package marvellator;
+
 public class User {
 
     private String nickName;
@@ -10,6 +11,7 @@ public class User {
     }
 
     public String getUserName(){
+
         return userName;
     }
 
