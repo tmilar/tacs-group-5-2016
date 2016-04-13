@@ -1,0 +1,59 @@
+Resources
+0. Home
+1. Session 
+2. User
+3. Characters
+4. Groups
+
+HOME CONTROLLER
+/ (GET) // this is the homepage
+
+SESSION CONTROLLER
+
+API:
+api/login (POST) // authenticates credentials against database and either redirects home with a new session or redirects back to /login
+api/logout (POST) // destroys session and redirects to previous webpage
+
+FRONTEND:
+/login (GET) // gets the webpage that has the login form
+/logout (GET) // logout webpage
+
+USER CONTROLLER
+
+API
+api/users/{id}/favs (GET) //
+api/users/{id}/favs (POST) //
+api/users/{id}/favs/{idCharacter} (DELETE) //
+
+FRONTEND
+/user/{id} (GET)
+/user (POST)
+/users/{id} (GET)
+/register (GET)  // gets the webpage that has the registration form
+/users/{id}/favs (GET)
+
+CHARACTER CONTROLLER
+
+API:
+api/characters
+api/character/{id} (POST)
+api/ranking
+
+FRONTEND:
+
+/characters (GET) // displays all marvel characters
+/ranking (GET) // pantalla de characters ordenada por cantidad de favoritos
+
+
+GROUP CONTROLLER
+API:
+api/groups (GET)
+api/groups (POST)
+
+api/groups/{id} (GET)
+api/groups/{id} (PUT)
+api/groups/{id} (DELETE)
+
+FRONTEND:
+/groups (GET) //
+/groups/{id} (GET)
