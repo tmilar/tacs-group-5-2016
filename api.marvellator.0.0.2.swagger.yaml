@@ -1,0 +1,230 @@
+swagger: '2.0'
+info:
+ title: Marvellator API
+ description: Marvellator TACS TP application - API documentation
+ version: 1.0.0
+host:  com
+schemes:
+ - https
+basePath: /api
+produces:
+ - application/json
+paths:
+ /characters:
+  get:
+    summary: Marvel characters list
+    description: |
+      The characters endpoint returns information about the *Marvel* characters.
+      The response includes the display name
+      and other details about each character.
+      
+      TODO this shit doesn't work yet...
+    tags:
+      - Characters
+    responses:
+      '200':
+        description: An array of characters
+        schema:
+          type: array
+          items:
+          $ref: '#/definitions/Character'
+      default:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+ /favorites:
+   get:
+     summary: Favorite characters list
+     description: |
+       Show a list of all the Marvel characters the current user added as favorites.
+     tags:
+       - Favorites
+     responses:
+       '200':
+         description: An array of favorite Marvel characters
+         schema:
+           type: array
+           items:
+           $ref: '#/definitions/Character'
+       default:
+         description: Unexpected error
+         schema:
+           $ref: '#/definitions/Error'
+   post:
+     summary: Favorite characters list
+     description: |
+       Show a list of all the Marvel characters the current user added as favorites.
+     tags:
+       - Favorites
+     parameters:
+       - name: character
+         in: body
+         schema: 
+           $ref: '#/definitions/Character'
+         description: New favorite character fields
+         required: true
+       - name: SESSION
+         in: header
+         type: string
+         format: int32
+         description: 'User session id'
+         required: true
+     responses:
+       '200':
+         description: An array of favorite Marvel characters
+         schema:
+           type: array
+           items:
+           $ref: '#/definitions/Character'
+       default:
+         description: Unexpected error
+         schema:
+           $ref: '#/definitions/Error'
+ /groups:
+   get:
+     summary: Show created groups list 
+     description: >
+        Loads the groups html which will show all created groups in a list.
+     tags:
+       - Estimates
+     responses:
+       '200':
+         description: An array of price estimates by product
+         schema:
+           type: array
+           items:
+           $ref: '#/definitions/PriceEstimate'
+       default:
+         description: Unexpected error
+         schema:
+           $ref: '#/definitions/Error'
+ /estimates/time:
+   get:
+     summary: Time Estimates
+     description: 'The Time Estimates endpoint returns ETAs for all products offered at a given location, with the responses expressed as integers in seconds. We recommend that this endpoint be called every minute to provide the most accurate, up-to-date ETAs.'
+     parameters:
+       - name: start_latitude
+         in: query
+         description: Latitude component of start location.
+         required: true
+         type: number
+         format: double
+       - name: start_longitude
+         in: query
+         description: Longitude component of start location.
+         required: true
+         type: number
+         format: double
+       - name: customer_uuid
+         in: query
+         type: string
+         format: uuid
+         description: Unique customer identifier to be used for experience customization.
+       - name: product_id
+         in: query
+         type: string
+         description: 'Unique identifier representing a specific product for a given latitude & longitude.'
+     tags:
+       - Estimates
+     responses:
+       '200':
+         description: An array of products
+         schema:
+           type: array
+           items:
+           $ref: '#/definitions/Product'
+       default:
+         description: Unexpected error
+         schema:
+           $ref: '#/definitions/Error'
+ /me:
+   get:
+     summary:  User Profile
+     description: The  User Profile endpoint returns information about the Uber user that has authorized with the application.
+     tags:
+       -  User
+     responses:
+       '200':
+         description: Profile information for a user
+         schema:
+           $ref: '#/definitions/User'
+       default:
+         description: Unexpected error
+         schema:
+           $ref: '#/definitions/Error'
+ /history:
+   get:
+     summary:  User Activity
+     description: "The  User Activity endpoint returns data about a user's lifetime activity with Uber. The response will include pickup locations and times, dropoff locations and times, the distance of past requests, and information about which products were requested.<br><br>The history array in the response will have a maximum length based on the limit parameter. The response value count may exceed limit, therefore subsequent API requests may be necessary."
+     parameters:
+       - name: offset
+         in: query
+         type: integer
+         format: int32
+         description: Offset the list of returned results by this amount. Default is zero.
+       - name: limit
+         in: query
+         type: integer
+         format: int32
+         description: 'Number of items to retrieve. Default is 5, maximum is 100.'
+     tags:
+       -  User
+     responses:
+       '200':
+         description: History information for the given user
+         schema:
+           $ref: '#/definitions/Activities'
+       default:
+         description: Unexpected error
+         schema:
+           $ref: '#/definitions/Error'
+definitions:
+  User:
+   type: object
+   properties:
+     username:
+       type: string
+       description: Name of the Marvellator user.
+     email:
+       type: string
+       description: Email address of the user
+     favorites:
+       type: array
+       description: List of user favorite characters
+       items:
+       $ref: '#/definitions/Character'
+  Character:
+    type: object
+    properties:
+    _id:
+      type: string
+      description: Unique identifier representing a specific product for a given latitude & longitude. For example, MarvelX in San Francisco will have a different product_id than MarvelX in Los Angeles.
+    $url:
+      type: string
+      description: External Marvel API URL of the character.
+    name:
+      type: string
+      description: Display name of the character.
+  Group:
+    type: object
+    properties:
+    _id:
+      type: string
+      description: 'Unique identifier representing a specific Group which contains Marvel characters'
+    name:
+      type: string
+      description: 'The name of the group'
+    characters:
+      type: array
+      items:
+      $ref: "#/definitions/Character"
+  Error:
+   type: object
+   properties:
+     code:
+       type: integer
+       format: int32
+     message:
+       type: string
+     fields:
+       type: string
