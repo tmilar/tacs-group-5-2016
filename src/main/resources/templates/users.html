@@ -7,7 +7,7 @@
 <body>
 <h1>User!</h1>
 <form action="#" th:action="@{/users}" th:object="${user}" method="post">
-    <p th:text=" ${user.nickName} + ${user.userName}" />
+    <p th:text=" ${user.name} + ${user.userName}" />
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 </body>
