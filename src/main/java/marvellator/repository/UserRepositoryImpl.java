@@ -5,9 +5,9 @@ import marvellator.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class UserRepository {
+public final class UserRepositoryImpl {
 
-    public static UserRepository repoUsers = new UserRepository();
+//    public static UserRepositoryImpl repoUsers = new UserRepositoryImpl();
 
 
     public User getCurrentUser() {
