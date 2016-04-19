@@ -2,7 +2,7 @@ package marvellator.model;
 
 import org.junit.Test;
 
-import static marvellator.model.UserRepository.repoUsers;
+import static marvellator.repository.UserRepository.repoUsers;
 import static org.junit.Assert.*;
 
 
