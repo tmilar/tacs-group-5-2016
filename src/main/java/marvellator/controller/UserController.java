@@ -1,4 +1,4 @@
-package marvellator;
+package marvellator.controller;
 
 import marvellator.model.User;
 import org.springframework.stereotype.Controller;
