@@ -1,9 +1,9 @@
-package marvellator.controller.apiControllers;
+package marvellator.controller.rest;
 
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class CharacterApiController {
+public class CharacterRestController {
 
     @RequestMapping(value = "api/characters", method = RequestMethod.GET)
     public String characters() {
