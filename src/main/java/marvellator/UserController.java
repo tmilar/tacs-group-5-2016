@@ -1,11 +1,10 @@
 package marvellator;
 
 import marvellator.model.User;
-import marvellator.model.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import static marvellator.model.UserRepository.repoUsers;
+import static marvellator.repository.UserRepository.repoUsers;
 
 @Controller
 public class UserController {
