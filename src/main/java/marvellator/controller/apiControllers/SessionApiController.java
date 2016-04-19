@@ -1,4 +1,4 @@
-package marvellator.apiControllers;
+package marvellator.controller.apiControllers;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
