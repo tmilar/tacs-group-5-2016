@@ -30,12 +30,9 @@ public class MarvellatorApplicationTests {
 	@Rule
 	public FongoRule fongoRule = new FongoRule();
 
-	@Autowired
-	private UserRepository userRepository;
-
 	@Configuration
-	@EnableMongoRepositories
-	@ComponentScan(basePackageClasses = { UserRepository.class })
+//	@EnableMongoRepositories
+//	@ComponentScan(basePackageClasses = { UserRepository.class })
 	static class MongoConfiguration extends AbstractMongoConfiguration {
 
 		@Override
@@ -56,7 +53,5 @@ public class MarvellatorApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		userRepository.save(new User("fede"));
-		assertEquals(1, userRepository.count());
 	}
 }

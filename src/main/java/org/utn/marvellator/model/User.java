@@ -6,15 +6,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * Created by Tomas on 4/20/2016.
  */
-@Document
+@Document(collection = "user")
 public class User {
 
 	@Id
 	private String id;
-	private String nombre;
+	private String name;
 
 	public User(String name) {
-		this.nombre = name;
+		this.name = name;
 	}
 
 	public String getId() {
@@ -25,11 +25,11 @@ public class User {
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 }
