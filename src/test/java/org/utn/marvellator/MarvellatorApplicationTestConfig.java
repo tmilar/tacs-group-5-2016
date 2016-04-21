@@ -10,6 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,19 +21,16 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.utn.marvellator.model.User;
 import org.utn.marvellator.repository.UserRepository;
 
-import static org.junit.Assert.assertEquals;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = MarvellatorApplication.class)
-@WebAppConfiguration
-public class MarvellatorApplicationTests {
+@Configuration
+//@EnableAutoConfiguration
+//@ComponentScan({"org.utn.marvellator.repository"})
+public class MarvellatorApplicationTestConfig {
 
 	@Rule
 	public FongoRule fongoRule = new FongoRule();
 
 	@Configuration
-//	@EnableMongoRepositories
-//	@ComponentScan(basePackageClasses = { UserRepository.class })
+	@EnableMongoRepositories
 	static class MongoConfiguration extends AbstractMongoConfiguration {
 
 		@Override
