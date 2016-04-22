@@ -22,15 +22,15 @@ import org.utn.marvellator.model.User;
 import org.utn.marvellator.repository.UserRepository;
 
 @Configuration
-//@EnableAutoConfiguration
-//@ComponentScan({"org.utn.marvellator.repository"})
+@EnableAutoConfiguration
+@ComponentScan({"org.utn.marvellator.repository", "org.utn.marvellator.service"})
 public class MarvellatorApplicationTestConfig {
 
 	@Rule
 	public FongoRule fongoRule = new FongoRule();
 
 	@Configuration
-	@EnableMongoRepositories
+//	@EnableMongoRepositories
 	static class MongoConfiguration extends AbstractMongoConfiguration {
 
 		@Override
