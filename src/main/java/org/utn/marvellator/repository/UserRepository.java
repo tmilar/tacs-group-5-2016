@@ -1,6 +1,6 @@
-package marvellator.repository;
+package org.utn.marvellator.repository;
 
-import marvellator.model.User;
+import org.utn.marvellator.model.User;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package marvellator.model;
+package org.utn.marvellator.model;
 
 public class User {
 

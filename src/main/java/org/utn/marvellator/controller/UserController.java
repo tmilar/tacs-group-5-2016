@@ -1,10 +1,9 @@
-package marvellator.controller;
+package org.utn.marvellator.controller;
 
-import marvellator.model.User;
+import org.utn.marvellator.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import static marvellator.repository.UserRepository.repoUsers;
+import org.utn.marvellator.repository.UserRepository;
 
 @Controller
 public class UserController {
@@ -16,7 +15,7 @@ public class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public void userSignUp(@ModelAttribute("userName") String userName, @ModelAttribute("name") String name, @ModelAttribute("password") String password) {
-        repoUsers.registerUser(new User(name, userName, password));
+        UserRepository.repoUsers.registerUser(new User(name, userName, password));
     }
 
     @RequestMapping(value = "/favorites", method = RequestMethod.GET)
