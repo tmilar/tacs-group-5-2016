@@ -1,4 +1,4 @@
-package marvellator.apiControllers;
+package marvellator.controller.rest;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class UserApiController {
+public class UserRestController {
 
 
     @RequestMapping(value = "api/users/{idUser}/favs/{idCharacter}", method = RequestMethod.DELETE)
