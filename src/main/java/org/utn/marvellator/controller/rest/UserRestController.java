@@ -1,4 +1,4 @@
-package marvellator.controller.rest;
+package org.utn.marvellator.controller.rest;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
