@@ -8,7 +8,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.utn.marvellator.MarvellatorApplicationTestConfig;
 import org.utn.marvellator.model.User;
 import org.utn.marvellator.repository.UserRepository;
-import org.utn.marvellator.service.impl.UserServiceImpl;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class UserServiceTest {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Autowired
     private UserRepository userRepository;
