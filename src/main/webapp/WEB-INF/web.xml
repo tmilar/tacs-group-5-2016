@@ -24,4 +24,3 @@
         <url-pattern>*.form</url-pattern>
     </servlet-mapping>
 </web-app>
-

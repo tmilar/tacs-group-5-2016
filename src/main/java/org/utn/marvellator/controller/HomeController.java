@@ -1,13 +1,14 @@
-package marvellator;
+package org.utn.marvellator.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
-@RestController
+@Controller
 public class HomeController {
+
     @RequestMapping(value = "/")
     public String home() {
-        return "Home page \n";
+        return "home";
     }
 }

@@ -1,4 +1,4 @@
-package marvellator;
+package org.utn.marvellator.controller.rest;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,17 +6,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class GroupController {
-    /* API */
-    @RequestMapping(value = "api/groups", method = RequestMethod.GET)
-    public String groups() {
-        return "List of groups \n";
-    }
+public class GroupRestController {
 
-    @RequestMapping(value = "api/groups", method = RequestMethod.POST)
-    public String newGroup() {
-        return "New group \n";
-    }
 
     @RequestMapping(value = "api/groups/{id}", method = RequestMethod.GET)
     public String group(@PathVariable int id) {
@@ -33,14 +24,15 @@ public class GroupController {
         return "Group deleted \n";
     }
 
-    /* FRONT END */
-    @RequestMapping(value = "/groups", method = RequestMethod.GET)
-    public String groupsPage() {
-        return "Groups Page \n";
+    @RequestMapping(value = "api/groups", method = RequestMethod.GET)
+    public String groups() {
+        return "List of groups \n";
     }
 
-    @RequestMapping(value = "/groups/{id}", method = RequestMethod.GET)
-    public String groupPage(@PathVariable int id) {
-        return "A group Page \n";
+    @RequestMapping(value = "api/groups", method = RequestMethod.POST)
+    public String newGroup() {
+        return "New group \n";
     }
+
+
 }
