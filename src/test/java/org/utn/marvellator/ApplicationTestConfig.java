@@ -24,7 +24,7 @@ import org.utn.marvellator.repository.UserRepository;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan({"org.utn.marvellator.repository", "org.utn.marvellator.service"})
-public class MarvellatorApplicationTestConfig {
+public class ApplicationTestConfig {
 
 	@Rule
 	public FongoRule fongoRule = new FongoRule();
