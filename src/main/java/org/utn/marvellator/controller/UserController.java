@@ -26,7 +26,7 @@ public class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public void userSignUp(@ModelAttribute("userName") String userName, @ModelAttribute("name") String name, @ModelAttribute("password") String password) {
-        userService.registerUser(name, userName, password);
+        userService.registerUser(new User(name, userName, password));
     }
 
     @RequestMapping(value = "/favorites", method = RequestMethod.GET)
