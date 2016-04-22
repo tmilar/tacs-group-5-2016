@@ -1,40 +1,72 @@
 package org.utn.marvellator.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "user")
 public class User {
 
-    private String name;
-    private String userName;
-    private String password;
+	@Id
+	private String id;
 
-    public User(String name, String userName, String password) {
-        this.name = name;
-        this.userName = userName;
-        this.password = password;
-    }
+	private String name;
 
-    public String getUserName() {
+	@Indexed(unique = true)
+	private String userName;
 
-        return userName;
-    }
+	private String password;
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	private String email;
 
-    public String getName() {
-        return name;
-    }
+	public User(){
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public User(String name, String userName, String password) {
+		this.name = name;
+		this.userName = userName;
+		this.password = password;
+	}
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public User(String userName) {
+		this.userName = userName;
+	}
 
+	public String getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getEmail() {
+		return email;
+	}
 }

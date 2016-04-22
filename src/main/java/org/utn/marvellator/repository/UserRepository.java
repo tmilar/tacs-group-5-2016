@@ -1,32 +1,10 @@
 package org.utn.marvellator.repository;
 
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.utn.marvellator.model.User;
 
-import java.util.ArrayList;
-import java.util.List;
+public interface UserRepository extends MongoRepository<User, String>{
 
-public final class UserRepository {
+    User findFirstByUserName(String userName);
 
-    public static UserRepository repoUsers = new UserRepository();
-
-
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    private User currentUser;
-
-    public List<User> getRegisteredUsers() {
-        return registeredUsers;
-    }
-
-    private List<User> registeredUsers = new ArrayList<User>();
-
-    public void registerUser(User newUser){
-        registeredUsers.add(newUser);
-    }
-
-    public void login(User currentUser){
-        this.currentUser = currentUser;
-    }
 }

@@ -1,12 +1,23 @@
 package org.utn.marvellator.controller;
 
-import org.utn.marvellator.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.utn.marvellator.repository.UserRepository;
+import org.utn.marvellator.model.User;
+import org.utn.marvellator.service.UserService;
 
 @Controller
 public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping("/greeting")
+    public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
+        model.addAttribute("name", name);
+        return "greeting";
+    }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public User userHome(@RequestParam(value = "name", defaultValue = "A default name :)") String name) {
@@ -15,7 +26,7 @@ public class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public void userSignUp(@ModelAttribute("userName") String userName, @ModelAttribute("name") String name, @ModelAttribute("password") String password) {
-        UserRepository.repoUsers.registerUser(new User(name, userName, password));
+        userService.registerUser(new User(name, userName, password));
     }
 
     @RequestMapping(value = "/favorites", method = RequestMethod.GET)
