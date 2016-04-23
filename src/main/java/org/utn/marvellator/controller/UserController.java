@@ -3,9 +3,13 @@ package org.utn.marvellator.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.utn.marvellator.model.SignupForm;
 import org.utn.marvellator.model.User;
 import org.utn.marvellator.service.UserService;
+
+import javax.validation.Valid;
 
 @Controller
 public class UserController {
@@ -40,9 +44,19 @@ public class UserController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public String registerPage() {
+    public String signup(Model model) {
+        model.addAttribute(new SignupForm());
         return "signup";
     }
 
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public String signup(@Valid @ModelAttribute SignupForm signupForm, Errors errors) {
+        if (errors.hasErrors()) {
+            return "signup";
+        }
 
+        userService.registerUser(new User(signupForm.getEmail(), signupForm.getUserName(), signupForm.getPassword()) );
+        //TODO show somehow a message saying that the user has been registered...
+        return "redirect:/index";
+    }
 }
