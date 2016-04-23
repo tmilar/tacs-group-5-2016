@@ -4,6 +4,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Document(collection = "user")
 public class User {
 
@@ -18,6 +21,8 @@ public class User {
 	private String password;
 
 	private String email;
+
+	private Set<Integer> favorites = new HashSet<Integer>();
 
 	public User(){
 	}
@@ -61,12 +66,27 @@ public class User {
 		this.password = password;
 	}
 
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	public String getEmail() {
 		return email;
+	}
+
+	public Set<Integer> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(Set<Integer> favorites) {
+		this.favorites = favorites;
+	}
+
+	public void addFavorite(Integer characterId){
+		this.favorites.add(characterId);
+	}
+
+	public void removeFavorite(Integer characterId){
+		this.favorites.remove(characterId);
 	}
 }
