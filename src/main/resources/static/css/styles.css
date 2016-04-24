@@ -1,0 +1,40 @@
+.custom-container, .flex-aligned-items{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.flex-aligned-items.horiz{
+    flex-direction: row;
+    align-items:center;
+    justify-content: space-around;
+}
+
+.font-small{
+    font-size:14px;
+}
+
+.custom-container.small{
+    width: 30%;
+}
+
+.custom-container.half{
+    width:50%;
+}
+
+.custom-container.x-small{
+    width: 20%;
+}
+
+.panel-body.medium{
+    padding: 10%;
+}
+
+.flex-container{
+    display: flex;
+    justify-content: space-around;
+}
+
+.item-form-margin{
+    margin: 0 auto 20px;
+}
