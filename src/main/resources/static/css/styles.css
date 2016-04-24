@@ -11,9 +11,17 @@
 }
 
 .font-small{
-    font-size:14px;
+    font-size:12px;
 }
 
+.marvellator-background{
+    background: url("WDF_586809.jpg");
+    background-size: cover;
+    }
+
+.light-link{
+    color: lightblue;
+}
 .custom-container.small{
     width: 30%;
 }
@@ -30,9 +38,22 @@
     padding: 10%;
 }
 
+.panel-default.transparent{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.jumbotron.white-text{
+    color: whitesmoke;
+}
+
 .flex-container{
     display: flex;
     justify-content: space-around;
+    padding: 7%;
+}
+
+.navbar.no-margin{
+    margin-bottom: unset;
 }
 
 .item-form-margin{
