@@ -15,34 +15,38 @@
           th:href="@{/css/styles.css}"/>
 </head>
 <body>
-<div class="jumbotron flex-container">
+<nav class="navbar no-margin navbar-fixed-top navbar-static-top navbar-inverse">
+    <a class="navbar-brand" href="/">Marvellator 2016</a>
+</nav>
+<div class="jumbotron white-text flex-container marvellator-background">
     <div class="custom-container medium">
-        <h1>Marvellator 2016</h1>
-        <p>Welcome to the Marvellator Application!</p>
-        <p>Now you can manage your favorite Marvel characters</p>
+        <h1>maybe</h1>
+        <p>some</p>
+        <p>slides</p>
     </div>
-    <div class="custom-container small">
-        <div class="panel panel-default">
-            <div class="panel-body medium">
+    <div class="custom-container x-small">
+        <div class="panel panel-default transparent">
+            <div class="panel-body">
                 <form action="#" th:action="@{/login}">
                     <div class="flex-aligned-items form-horizontal">
                        <p><input id="username" type="text" class="form-control" placeholder="Username"/></p>
                         <p><input id="pass" type="password" class="form-control" placeholder="Password"/></p>
-                       <button type="submit" class="btn btn-large btn-success">Log in</button>
+                       <button type="submit" class="btn btn-large btn-warning">Log in</button>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-body medium">
+        <div class="panel panel-default transparent">
+            <div class="panel-body">
                 <div class="item-form-margin">
-                    <h5>Don't you have an account?
-                    <a th:href="@{/signup}" class="font-small">Sign up</a>
-                        </h5>
+                    <h6>Don't you have an account?
+                    <a th:href="@{/signup}" class="font-small light-link">Sign up</a>
+                        </h6>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<footer></footer>
 </body>
 </html>
