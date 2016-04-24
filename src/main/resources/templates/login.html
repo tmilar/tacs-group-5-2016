@@ -8,7 +8,7 @@
 <body>
 <div th:fragment="content">
     <form class="form-narrow form-horizontal" action="#" th:action="@{/login}" method="post">
-        <p><input type="text" value="username"/></p>
+        <p><input type="text" class="form-control" placeholder="Username" value="username"/></p>
         <p><input type="password" value="password"/></p>
         <p><input type="submit" value="Login"/> <input type="reset" value="Reset"/></p>
     </form>
