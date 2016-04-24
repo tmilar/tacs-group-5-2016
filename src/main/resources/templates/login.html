@@ -1,14 +1,17 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:include="fragments/layout :: layout">
 <head>
-    <title>LOGIN</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Log into your account</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<h1>User!</h1>
-<form action="#" th:action="@{/login}" th:object="${id}" method="post">
-    <p th:text="Testing an id + ${id}" />
-    <p><input type="submit" value="Login" /> <input type="reset" value="Reset" /></p>
-</form>
+<div th:fragment="content">
+    <form class="form-narrow form-horizontal" action="#" th:action="@{/login}" method="post">
+        <p><input type="text" value="username"/></p>
+        <p><input type="password" value="password"/></p>
+        <p><input type="submit" value="Login"/> <input type="reset" value="Reset"/></p>
+    </form>
+</div>
 </body>
 </html>
