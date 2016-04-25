@@ -1,52 +1,39 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:include="unknownuserform :: home">
 <head>
-    <title>Hello Spring Boot!</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen"
-          th:href="@{/css/bootstrap.min.css}"/>
-    <link href="../static/css/core.css" rel="stylesheet" media="screen"
-          th:href="@{/css/core.css}"/>
-    <script src="../static/js/jquery.js"
-            th:src="@{/js/jquery.js}"></script>
-    <script src="../static/js/bootstrap.min.js"
-            th:src="@{/js/bootstrap.min.js}"></script>
-    <link href="../static/css/styles.css" rel="stylesheet" media="screen"
-          th:href="@{/css/styles.css}"/>
 </head>
 <body>
-<nav class="navbar no-margin navbar-fixed-top navbar-static-top navbar-inverse">
-    <a class="navbar-brand" href="/">Marvellator 2016</a>
-</nav>
-<div class="jumbotron white-text flex-container marvellator-background">
-    <div class="custom-container medium">
-        <h1>maybe</h1>
-        <p>some</p>
-        <p>slides</p>
-    </div>
-    <div class="custom-container x-small">
-        <div class="panel panel-default transparent">
-            <div class="panel-body">
-                <form action="#" th:action="@{/login}">
-                    <div class="flex-aligned-items form-horizontal">
-                       <p><input id="username" type="text" class="form-control" placeholder="Username"/></p>
-                        <p><input id="pass" type="password" class="form-control" placeholder="Password"/></p>
-                       <button type="submit" class="btn btn-large btn-warning">Log in</button>
+<div th:fragment="unknown-user-form">
+    <div class="panel panel-default transparent">
+        <div class="panel-body">
+            <form method="post" th:action="@{/login}" th:object="${loginForm}">
+                <!--/* Show general error task when form contains errors */-->
+                <th:block th:if="${#fields.hasErrors('${signupForm.*}')}">
+                    <div th:replace="fragments/alert :: alert (type='danger', message='Invalid username or password.')">
+                        Alert
                     </div>
-                </form>
-            </div>
+                </th:block>
+                <fieldset class="flex-aligned-items form-horizontal">
+                    <div class="form-group margin"><input id="username" type="text" class="form-control"
+                                                          placeholder="Username"/></div>
+                    <div class="form-group margin"><input id="pass" type="password" class="form-control"
+                                                          placeholder="Password"/></div>
+                    <button type="submit" class="btn btn-large btn-warning">Log in</button>
+                </fieldset>
+            </form>
         </div>
-        <div class="panel panel-default transparent">
-            <div class="panel-body">
-                <div class="item-form-margin">
-                    <h6>Don't you have an account?
+    </div>
+    <div class="panel panel-default transparent">
+        <div class="panel-body">
+            <div class="item-form-margin">
+                <h6>Don't you have an account?
                     <a th:href="@{/signup}" class="font-small light-link">Sign up</a>
-                        </h6>
-                </div>
+                </h6>
             </div>
         </div>
     </div>
 </div>
-<footer></footer>
 </body>
 </html>
