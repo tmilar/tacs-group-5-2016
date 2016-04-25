@@ -8,18 +8,26 @@
 <div th:fragment="unknown-user-form">
     <div class="panel panel-default transparent">
         <div class="panel-body">
-            <form method="post" th:action="@{/login}" th:object="${loginForm}">
+            <form method="post" th:action="@{/login}" th:object="${user}" th:fragment="user">
                 <!--/* Show general error task when form contains errors */-->
-                <th:block th:if="${#fields.hasErrors('${signupForm.*}')}">
-                    <div th:replace="fragments/alert :: alert (type='danger', message='Invalid username or password.')">
-                        Alert
-                    </div>
-                </th:block>
+                <!-- <th:block th:if="${#fields.hasErrors('${user.*}')}">
+                     <div th:replace="fragments/alert :: alert (type='danger', message='Invalid username or password.')">
+                         Alert
+                     </div>
+                 </th:block>-->
                 <fieldset class="flex-aligned-items form-horizontal">
-                    <div class="form-group margin"><input id="username" type="text" class="form-control"
-                                                          placeholder="Username"/></div>
-                    <div class="form-group margin"><input id="pass" type="password" class="form-control"
-                                                          placeholder="Password"/></div>
+                    <div class="form-group margin"> <!--th:classappend="${#fields.hasErrors('userName')}? 'has-error'"-->
+                        <input id="username" type="text" class="form-control" placeholder="Username"/>
+                              <!-- th:field="*{userName}"-->
+                      <!--  <span class="help-block text-small" th:if="${#fields.hasErrors('userName')}"
+                              th:errors="*{userName}">Incorrect username</span>-->
+                    </div>
+                    <div class="form-group margin"><!-- th:classappend="${#fields.hasErrors('password')}? 'has-error'">-->
+                        <input id="pass" type="password" class="form-control" placeholder="Password"/>
+                               <!--th:field="*{password}"-->
+                      <!--  <span class="help-block text-small" th:if="${#fields.hasErrors('password')}"
+                              th:errors="*{password}">Incorrect password</span>-->
+                    </div>
                     <button type="submit" class="btn btn-large btn-warning">Log in</button>
                 </fieldset>
             </form>
