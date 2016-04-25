@@ -9,14 +9,14 @@
           th:href="@{/css/bootstrap.min.css}"/>
     <link href="../static/css/core.css" rel="stylesheet" media="screen"
           th:href="@{/css/core.css}"/>
+    <link href="../static/css/styles.css" rel="stylesheet" media="screen"
+          th:href="@{/css/styles.css}"/>
     <script src="../static/js/jquery.js"
             th:src="@{/js/jquery.js}"></script>
     <script src="../static/js/bootstrap.min.js"
             th:src="@{/js/bootstrap.min.js}"></script>
 </head>
-<body>
-<!--This layout is made for all webpages, except for Index: when someone logs out, it is redirected to Index,
-same when someone enters Marvellator app for the first time.-->
+<body class="body-margins">
 <!-- Navbar -->
 <nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="navbar">
     <div class="container">
@@ -26,7 +26,7 @@ same when someone enters Marvellator app for the first time.-->
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Marvellatorrrr 2016</a>
+            <a class="navbar-brand" href="#">Marvellator 2016</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -49,7 +49,7 @@ same when someone enters Marvellator app for the first time.-->
     <div th:include="this :: content"/>
 </div>
 <footer class="navbar navbar-inverse navbar-fixed-bottom" th:fragment="footer">
-    <h4>&copy; 2016 TACS - Marvellator - G5 2016</h4>
+    <div class="container"><h5>&copy; 2016 TACS - Marvellator - G5 2016</h5></div>
 </footer>
 </body>
 </html>
