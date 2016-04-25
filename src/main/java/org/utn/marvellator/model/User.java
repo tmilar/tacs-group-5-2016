@@ -2,6 +2,7 @@ package org.utn.marvellator.model;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Document(collection = "user")
 public class User {
+
 
     @Id
     private String id;
@@ -98,4 +100,5 @@ public class User {
     public void removeFavorite(Integer characterId) {
         this.favorites.remove(characterId);
     }
+
 }

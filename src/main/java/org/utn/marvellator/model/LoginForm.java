@@ -10,5 +10,5 @@ public class LoginForm {
     private String userName;
     @NotBlank
     @Length(min=4, max=15)
-    private String password;
+ private String password;
 }
