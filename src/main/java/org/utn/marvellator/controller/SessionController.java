@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.utn.marvellator.model.SignupForm;
+
 import org.utn.marvellator.model.User;
 import org.utn.marvellator.service.UserService;
 
 import javax.validation.Valid;
+
 
 @Controller
 public class SessionController {
