@@ -1,0 +1,78 @@
+.custom-container, .flex-aligned-items {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.flex-aligned-items.horiz {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.font-small {
+    font-size: 12px;
+}
+
+.marvellator-background {
+    background: url("WDF_586809.jpg");
+    background-size: cover;
+}
+
+.light-link {
+    color: lightblue;
+}
+
+.custom-container.small {
+    width: 30%;
+}
+
+.custom-container.half {
+    width: 50%;
+}
+
+.custom-container.x-small {
+    width: 20%;
+}
+
+.panel-body.medium {
+    padding: 10%;
+}
+
+.panel-default.transparent {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.jumbotron.white-text,
+.white-text {
+    color: whitesmoke;
+}
+
+.text-small {
+    font-size: 11px;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 7%;
+}
+
+.form-group.margin {
+    margin-left: unset;
+    margin-right: unset;
+}
+
+.navbar.no-margin {
+    margin-bottom: unset;
+}
+
+.item-form-margin {
+    margin: 0 auto 20px;
+}
+
+.body-margins {
+    padding: 7%;
+    background-image: url('marvel_comics_hd-wallpaper-234492.jpg');
+    background-size: cover;
+}
