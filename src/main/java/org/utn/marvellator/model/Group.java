@@ -47,4 +47,12 @@ public class Group {
 	public void setCharacters(Set<Integer> characters) {
 		this.characters = characters;
 	}
+
+	public void addCharacter(Integer characterId){
+		this.characters.add(characterId);
+	}
+
+	public void removeCharacter(Integer characterId){
+		this.characters.remove(characterId);
+	}
 }
