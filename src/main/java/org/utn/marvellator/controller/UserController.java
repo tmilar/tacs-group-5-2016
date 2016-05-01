@@ -16,12 +16,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+/*
     @RequestMapping("/greeting")
     public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
         return "greeting";
-    }
+    }*/
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public User userHome(@RequestParam(value = "name", defaultValue = "A default name :)") String name) {
