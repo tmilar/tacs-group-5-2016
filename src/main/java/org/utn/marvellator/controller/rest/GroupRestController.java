@@ -1,55 +1,36 @@
 package org.utn.marvellator.controller.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.utn.marvellator.model.Group;
-import org.utn.marvellator.repository.GroupRepository;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class GroupRestController {
 
-    @Autowired
-    private GroupRepository groupRepository;
 
     @RequestMapping(value = "api/groups/{id}", method = RequestMethod.GET)
-    public String group(@PathVariable String id) {
-        Group group = groupRepository.findFirstById(id);
-        return "A group";
+    public String group(@PathVariable int id) {
+        return "A group \n";
     }
 
     @RequestMapping(value = "api/groups/{id}", method = RequestMethod.PUT)
-    public String addCharacter(@PathVariable String id,@RequestParam("characterId") int idCharacter) {
-        Group group = groupRepository.findFirstById(id);
-
-        if(group != null){
-            group.addCharacter(idCharacter);
-            groupRepository.save(group);
-            return "Character added to a group \n";
-        }else return "Failure";
+    public String addCharacter(@PathVariable int id) {
+        return "Character added to a group \n";
     }
 
     @RequestMapping(value = "api/groups/{id}", method = RequestMethod.DELETE)
-    public String deleteGroup(@PathVariable String id) {
-        Group group = groupRepository.findFirstById(id);
-
-        if(group != null){
-            groupRepository.delete(group);
-            return "Group deleted \n";
-        }else return "Failure";
+    public String deleteGroup(@PathVariable int id) {
+        return "Group deleted \n";
     }
 
     @RequestMapping(value = "api/groups", method = RequestMethod.GET)
     public String groups() {
-        List<Group> groups = groupRepository.findAll();
         return "List of groups \n";
     }
 
     @RequestMapping(value = "api/groups", method = RequestMethod.POST)
-    public String newGroup(@RequestParam("name") String name) {
-        Group group = new Group(name);
-        groupRepository.save(group);
+    public String newGroup() {
         return "New group \n";
     }
 

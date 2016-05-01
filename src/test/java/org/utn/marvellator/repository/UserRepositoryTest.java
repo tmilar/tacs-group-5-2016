@@ -10,7 +10,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.utn.marvellator.ApplicationTest;
 import org.utn.marvellator.model.User;
 
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ApplicationTest.class)
@@ -46,31 +48,5 @@ public class UserRepositoryTest {
         String testUsername = "test1";
         userRepository.save(new User(testUsername));
         userRepository.save(new User(testUsername));
-    }
-
-
-    @Test
-    public void shouldAssignAndPersistFavorite(){
-        String testUsername = "testUserName2";
-        int testCharacterId = 1;
-        User testUser = new User(testUsername);
-        testUser.addFavorite(testCharacterId);
-        userRepository.save(testUser);
-
-        assertEquals(1, userRepository.findFirstByUserName(testUsername).getFavorites().size());
-        assertTrue(userRepository.findFirstByUserName(testUsername).getFavorites().contains(testCharacterId));
-    }
-
-    @Test
-    public void shouldRemoveAndNoLongerPersistFavorite(){
-        String testUsername = "testUserName3";
-        int testCharacterId = 1;
-        User testUser = new User(testUsername);
-        testUser.addFavorite(testCharacterId);
-        testUser.removeFavorite(testCharacterId);
-        userRepository.save(testUser);
-
-        assertEquals(0, userRepository.findFirstByUserName(testUsername).getFavorites().size());
-        assertFalse(userRepository.findFirstByUserName(testUsername).getFavorites().contains(testCharacterId));
     }
 }
