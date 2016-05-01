@@ -7,16 +7,21 @@ import java.security.*;
 import java.net.URLEncoder;
 import java.net.URLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.stereotype.Service;
+import org.json.*;
+import org.utn.marvellator.model.*;
 
 /**
  * Created by Admin on 22/04/2016.
  */
 @Service
 public class CharactersService {
-    public static void getCharacters(){
+    public List<MarvelCharacter> getCharacters(){
         String url = "http://gateway.marvel.com/v1/public/characters";
         String charset = "UTF-8";  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
         String timestamp = String.valueOf(new java.util.Date().getTime());
@@ -65,6 +70,16 @@ public class CharactersService {
         }
         Scanner scanner = new Scanner(response);
         String responseBody = scanner.useDelimiter("\\A").next();
-        System.out.println(responseBody);
+        JSONObject jsonObj = new JSONObject(responseBody);
+        JSONArray characterJsonArray = jsonObj.getJSONObject("data").getJSONArray("results");
+        ArrayList<MarvelCharacter> listaFinal = new ArrayList<MarvelCharacter>();
+        for (Object characterjSON : characterJsonArray){
+            MarvelCharacter c = new MarvelCharacter();
+            JSONObject personaje = (JSONObject)characterjSON;
+            c.setId(String.valueOf(personaje.get("id")));
+            c.setName((String)personaje.get("name"));
+            listaFinal.add(c);
+        }
+        return listaFinal;
     }
 }
