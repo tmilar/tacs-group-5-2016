@@ -3,21 +3,19 @@ package org.utn.marvellator.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.utn.marvellator.service.impl.CharactersService;
+import org.utn.marvellator.service.CharacterService;
 
 @Controller
 public class CharacterController {
 
     @Autowired
-    CharactersService charactersService;
+    CharacterService characterService;
 
     @RequestMapping(value = "/characters", method = RequestMethod.GET)
     public String charactersPage(Model model) {
-        model.addAttribute(charactersService.getCharacters());
+        model.addAttribute(characterService.getCharacters());
         return "characters";
     }
 

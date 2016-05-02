@@ -15,12 +15,15 @@ import org.apache.commons.codec.binary.Hex;
 import org.springframework.stereotype.Service;
 import org.json.*;
 import org.utn.marvellator.model.*;
+import org.utn.marvellator.service.CharacterService;
 
 /**
  * Created by Admin on 22/04/2016.
  */
 @Service
-public class CharactersService {
+public class CharacterServiceImpl implements CharacterService {
+
+    @Override
     public List<MarvelCharacter> getCharacters(){
         String url = "http://gateway.marvel.com/v1/public/characters";
         String charset = "UTF-8";  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
