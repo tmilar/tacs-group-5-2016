@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.json.*;
 import org.utn.marvellator.model.*;
 import org.utn.marvellator.service.CharacterService;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by Admin on 22/04/2016.
@@ -84,5 +85,11 @@ public class CharacterServiceImpl implements CharacterService {
             listaFinal.add(c);
         }
         return listaFinal;
+    }
+
+    @Override
+    public MarvelCharacter getCharacterById(Long characterId) {
+        // TODO get a marvel character by id
+        throw new NotImplementedException();
     }
 }
