@@ -3,31 +3,29 @@ package org.utn.marvellator.model;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
+@Component
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserSession {
 
-    public String getUserName() {
-        return userName;
+    private User user;
+
+    public UserSession() {
+
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+
+    public User getUser() {
+        return user;
     }
 
-    @NotBlank
-    @Length(min=2, max=8)
-    private String userName;
-
-    public String getPassword() {
-        return password;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void clean(){
+        user = new User();
     }
-
-    @NotBlank
-    @Length(min=4, max=15)
- private String password;
 }
