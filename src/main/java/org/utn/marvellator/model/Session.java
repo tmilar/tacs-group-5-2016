@@ -3,6 +3,7 @@ package org.utn.marvellator.model;
 public class Session {
     private static Session session = new Session();
     private User currentSession;
+
     public static Session getInstance() {
         return session;
     }

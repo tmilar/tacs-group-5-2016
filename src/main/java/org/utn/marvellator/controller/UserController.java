@@ -34,8 +34,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/favorites", method = RequestMethod.GET)
-    public String favoritesPage(@PathVariable int id) {
-        return "Favorites Page,the id is: " + id + "\n";
+    public String favoritesPage(Model model) {
+
+        return "favorites";
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
