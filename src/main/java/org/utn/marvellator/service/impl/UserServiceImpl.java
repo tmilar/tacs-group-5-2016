@@ -2,7 +2,9 @@ package org.utn.marvellator.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.utn.marvellator.model.Session;
 import org.utn.marvellator.model.User;
+import org.utn.marvellator.model.UserSession;
 import org.utn.marvellator.repository.UserRepository;
 import org.utn.marvellator.service.UserService;
 
@@ -12,10 +14,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserSession loggedUser;
+
     /**
      * Validate and register a new user.
      *
-     * @param user
+     * @param user user that wants to register
      */
     public void registerUser(User user) {
         checkExistingUsername(user);
@@ -32,4 +37,22 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistsException(user.getUserName());
         }
     }
+
+    /**
+     * Login an existing user
+     *
+     * @param user user that wants to log in
+     */
+    public void loginUser(User user) {
+        Session.getInstance().setCurrentSession(user);
+        loggedUser.setUser(user);
+
+    }
+    public void logoutUser(){
+        loggedUser.clean();
+    }
+
+
+
+
 }
