@@ -16,12 +16,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+/*
     @RequestMapping("/greeting")
     public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
         return "greeting";
-    }
+    }*/
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public User userHome(@RequestParam(value = "name", defaultValue = "A default name :)") String name) {
@@ -34,8 +34,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/favorites", method = RequestMethod.GET)
-    public String favoritesPage(@PathVariable int id) {
-        return "Favorites Page,the id is: " + id + "\n";
+    public String favoritesPage(Model model) {
+
+        return "favorites";
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)

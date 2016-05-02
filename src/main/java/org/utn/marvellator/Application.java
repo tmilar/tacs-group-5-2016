@@ -7,11 +7,10 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
-import org.utn.marvellator.config.MongoDbConfig;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@Import(MongoDbConfig.class)
+// @Import(MongoDbConfig.class)
 public class Application {
 
 	@Bean
