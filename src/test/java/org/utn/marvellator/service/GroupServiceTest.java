@@ -8,12 +8,15 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.utn.marvellator.ApplicationTest;
+import org.utn.marvellator.model.CharacterAlreadyInGroupException;
 import org.utn.marvellator.model.Group;
+import org.utn.marvellator.model.MarvelCharacter;
 import org.utn.marvellator.repository.GroupRepository;
 
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ApplicationTest.class)
@@ -81,6 +84,19 @@ public class GroupServiceTest {
         groupService.deleteGroupById(existing.getId());
 
         assertEquals(0, groupRepository.count());
+    }
+
+    @Test
+    public void addCharacterToGroup_toAnExistingGroup_addsNewCharacter() throws CharacterAlreadyInGroupException {
+        Group existingGroup = createTestGroup();
+        String testName = existingGroup.getName();
+        MarvelCharacter testCharacter = new MarvelCharacter(testName);
+
+        groupService.addCharacterToGroup(testCharacter, existingGroup);
+
+        assertEquals(1, existingGroup.getCharacters().size());
+        assertTrue(existingGroup.getCharacters().contains(testCharacter));
+        assertTrue(groupRepository.findFirstByName(existingGroup.getName()).getCharacters().contains(testCharacter));
     }
 
     private Group createTestGroup(){
