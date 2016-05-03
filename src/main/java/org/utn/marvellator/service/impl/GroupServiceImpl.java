@@ -16,7 +16,7 @@ public class GroupServiceImpl implements GroupService {
     public Group createGroup(String newGroupName, String creatorName) {
         Group group = new Group(newGroupName, creatorName);
 
-        groupRepository.save(group);
+        groupRepository.insert(group);
 
         return group;
     }
