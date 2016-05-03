@@ -1,22 +1,27 @@
 package org.utn.marvellator.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@CompoundIndex(name="name_compound_index", def="{ 'group_name':1, 'creator_name':1 }", unique = true)
 @Document(collection = "group")
 public class Group {
 
 	@Id
 	private String id;
 
+	@Field("group_name")
 	private String name;
 
 	private Set<Integer> characters = new HashSet<Integer>();
 
+	@Field("creator_name")
 	private String creatorName;
 
 	public Group(){
