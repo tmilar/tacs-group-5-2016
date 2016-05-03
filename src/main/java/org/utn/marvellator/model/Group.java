@@ -17,7 +17,14 @@ public class Group {
 
 	private Set<Integer> characters = new HashSet<Integer>();
 
+	private String creatorName;
+
 	public Group(){
+	}
+
+	public Group(String name, String creatorName) {
+		this.name = name;
+		this.creatorName = creatorName;
 	}
 
 	public Group(String name) {
@@ -54,5 +61,13 @@ public class Group {
 
 	public void removeCharacter(Integer characterId){
 		this.characters.remove(characterId);
+	}
+
+	public String getCreatorName() {
+		return creatorName;
+	}
+
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
 	}
 }
