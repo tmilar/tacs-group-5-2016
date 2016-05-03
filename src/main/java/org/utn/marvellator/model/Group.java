@@ -2,12 +2,10 @@ package org.utn.marvellator.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @CompoundIndex(name="name_compound_index", def="{ 'group_name':1, 'creator_name':1 }", unique = true)
 @Document(collection = "group")
@@ -19,7 +17,7 @@ public class Group {
 	@Field("group_name")
 	private String name;
 
-	private Set<Integer> characters = new HashSet<Integer>();
+	private List<MarvelCharacter> characters = new ArrayList<MarvelCharacter>();
 
 	@Field("creator_name")
 	private String creatorName;
@@ -52,20 +50,29 @@ public class Group {
 		this.name = name;
 	}
 
-	public Set<Integer> getCharacters() {
+	public List<MarvelCharacter> getCharacters() {
 		return characters;
 	}
 
-	public void setCharacters(Set<Integer> characters) {
-		this.characters = characters;
+	/**
+	 * Add character to characters list without repeating (or else throw error)
+	 *
+	 * @param character
+	 * @throws CharacterAlreadyInGroupException
+     */
+	public void addCharacter(MarvelCharacter character) throws CharacterAlreadyInGroupException {
+		checkCharacterIsAlreadyInGroup(character);
+		this.characters.add(character);
 	}
 
-	public void addCharacter(Integer characterId){
-		this.characters.add(characterId);
+	private void checkCharacterIsAlreadyInGroup(MarvelCharacter character) throws CharacterAlreadyInGroupException {
+		if(characters.contains(character)){
+			throw new CharacterAlreadyInGroupException(character, this);
+		}
 	}
 
-	public void removeCharacter(Integer characterId){
-		this.characters.remove(characterId);
+	public void removeCharacter(MarvelCharacter character){
+		this.characters.remove(character);
 	}
 
 	public String getCreatorName() {
