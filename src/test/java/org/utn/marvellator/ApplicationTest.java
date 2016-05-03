@@ -11,7 +11,6 @@ import org.utn.marvellator.config.MongoDbConfig;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan({"org.utn.marvellator.repository", "org.utn.marvellator.service", "org.utn.marvellator"})
-@ContextConfiguration("/test-config.xml")
 @Import(MongoDbConfig.class)
 public class ApplicationTest {
 

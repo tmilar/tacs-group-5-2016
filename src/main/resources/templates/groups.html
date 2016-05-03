@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:include="fragments/layout :: layout">
 <head>
     <meta charset="UTF-8">
     <title>Groups of characters</title>
 </head>
 <body>
+<div th:content="content">
+    <span th:if="${#lists.isEmpty(groups)}">
+        No groups yet...<a href="">Create a new one?</a>
+    </span>
 
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td>#</td>
+            <td>Name</td>
+            <td>Count</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(groups)}">
+            <td colspan="4">No groups</td>
+        </tr>
+        <tr th:each="group, stat : ${groups}">
+            <td th:text="${stat.count}">1 ...</td>
+            <td><a href="#" th:text="${group.name}">Group name ...</a></td>
+            <td th:text="${#lists.size(group.characters) + ' character/s'}">3 character/s in list ...</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.utn.marvellator.ApplicationTest;
+import org.utn.marvellator.model.CharacterAlreadyInGroupException;
 import org.utn.marvellator.model.Group;
-import org.utn.marvellator.repository.GroupRepository;
+import org.utn.marvellator.model.MarvelCharacter;
 
 import static org.junit.Assert.*;
 
@@ -59,12 +60,11 @@ public class GroupRepositoryTest {
     }
 
     @Test
-    public void shouldPersistCharacterInAGroup() {
+    public void shouldPersistCharacterInAGroup() throws CharacterAlreadyInGroupException {
         String testName = "testGroup";
-        int testCharacter = 666;
+        MarvelCharacter testCharacter = new MarvelCharacter("superTestMan");
 
         Group testGroup = new Group(testName);
-        testGroup.addCharacter(testCharacter);
         testGroup.addCharacter(testCharacter);
 
         groupRepository.save(testGroup);
@@ -74,9 +74,9 @@ public class GroupRepositoryTest {
     }
 
     @Test
-    public void shouldDeleteAndNoLongerPersistCharacterInAGroup() {
+    public void shouldDeleteAndNoLongerPersistCharacterInAGroup() throws CharacterAlreadyInGroupException {
         String testName = "testGroup";
-        int testCharacter = 666;
+        MarvelCharacter testCharacter = new MarvelCharacter();
 
         Group testGroup = new Group(testName);
         testGroup.addCharacter(testCharacter);

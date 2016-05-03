@@ -6,7 +6,8 @@ package org.utn.marvellator.model;
 public class MarvelCharacter {
 
     private String id;
-    private String name;
+    private String name = "";
+
     public String getId() {
         return id;
     }
@@ -14,7 +15,6 @@ public class MarvelCharacter {
     public void setId(String id) {
         this.id = id;
     }
-
 
     public String getName() {
         return name;
@@ -25,7 +25,19 @@ public class MarvelCharacter {
     }
 
     public MarvelCharacter(){
-
     }
 
+    public MarvelCharacter(String name){
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Character: '"+ name + "', id: '"+ id + "'";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return name.equals(((MarvelCharacter) obj).getName());
+    }
 }

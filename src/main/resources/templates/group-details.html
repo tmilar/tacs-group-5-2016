@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:include="fragments/layout :: layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Group detail</title>
+</head>
+<body>
+<div th:content="content">
+    <h1 th:text="${'Name: ' + group.name}"></h1>
+
+    <p th:if="${#lists.isEmpty(group.characters)}">
+        No characters yet...<a href="">Add a new one?</a>
+    </p>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td>#</td>
+            <td>Icon</td>
+            <td>Character Name</td>
+            <td>Favorite?</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(group.characters)}">
+            <td colspan="4">No characters added yet</td>
+        </tr>
+        <tr th:each="character, stat : ${group.characters}">
+            <td th:text="${stat.count}">
+                1
+            </td>
+            <td>
+                <img th:src="${character.iconUrl}" src="http://i.annihil.us/u/prod/marvel/i/mg/9/30/538cd33e15ab7/standard_xlarge.jpg" th:alt-title="${character.name}">
+            </td>
+            <td>
+                <a href="#" th:text="${character.name}">Character name ...</a>
+            </td>
+            <td>
+                <input type="checkbox" th:checked="${character.isFavorite}" >
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
