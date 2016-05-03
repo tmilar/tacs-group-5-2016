@@ -35,7 +35,6 @@ public class UserController {
 
     @RequestMapping(value = "/favorites", method = RequestMethod.GET)
     public String favoritesPage(Model model) {
-
         return "favorites";
     }
 

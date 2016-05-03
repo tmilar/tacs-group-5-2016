@@ -11,5 +11,5 @@ public interface CharacterService {
 
     List<MarvelCharacter> getCharacters();
 
-    MarvelCharacter getCharacterById(Long characterId);
+    MarvelCharacter getCharacterById(Integer characterId);
 }

@@ -88,7 +88,7 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public MarvelCharacter getCharacterById(Long characterId) {
+    public MarvelCharacter getCharacterById(Integer characterId) {
         // TODO get a marvel character by id
         throw new NotImplementedException();
     }
