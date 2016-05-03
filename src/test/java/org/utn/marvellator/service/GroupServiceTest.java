@@ -101,9 +101,7 @@ public class GroupServiceTest {
 
     @Test(expected = CharacterAlreadyInGroupException.class)
     public void addCharacterToGroup_withAnExistingCharacterToAnExistingGroup_givesError() throws CharacterAlreadyInGroupException{
-        Group existingGroup = createTestGroup();
-        existingGroup.addCharacter(testCharacter);
-        groupRepository.save(existingGroup);
+        Group existingGroup = createTestGroupWithTestCharacter();
         assertTrue(_characterPersistedInGroup(testCharacter, existingGroup));
 
         groupService.addCharacterToGroup(testCharacter, existingGroup);
