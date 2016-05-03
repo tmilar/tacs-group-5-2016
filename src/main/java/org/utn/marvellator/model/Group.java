@@ -82,4 +82,9 @@ public class Group {
 	public void setCreatorName(String creatorName) {
 		this.creatorName = creatorName;
 	}
+
+	@Override
+	public String toString() {
+		return "Group '"+name+"', created by: '"+ creatorName + "', characters: [" + characters.toString() + "]";
+	}
 }
