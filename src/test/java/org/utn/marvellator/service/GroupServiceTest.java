@@ -11,6 +11,8 @@ import org.utn.marvellator.ApplicationTest;
 import org.utn.marvellator.model.Group;
 import org.utn.marvellator.repository.GroupRepository;
 
+import java.util.UUID;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -68,6 +70,22 @@ public class GroupServiceTest {
 
         assertEquals(2, groupRepository.count());
         assertEquals(groupRepository.findOne(newGroup1.getId()).getName(), groupRepository.findOne(newGroup2.getId()).getName());
+    }
+
+    @Test
+    public void deleteGroup_byExistingId_deletesExistingGroup(){
+        Group existing = createTestGroup();
+        assertEquals(1, groupRepository.count());
+        assertEquals(existing.getId(), groupRepository.findAll().get(0).getId());
+
+        groupService.deleteGroupById(existing.getId());
+
+        assertEquals(0, groupRepository.count());
+    }
+
+    private Group createTestGroup(){
+        Group testGroup = new Group("testGroupName" + UUID.randomUUID(), "testUsername" + UUID.randomUUID());
+        return groupRepository.insert(testGroup);
     }
 
 

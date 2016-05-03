@@ -6,4 +6,5 @@ public interface GroupService {
 
     Group createGroup(String newGroupName, String creatorName);
 
+    void deleteGroupById(String id);
 }
