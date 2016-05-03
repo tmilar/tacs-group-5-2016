@@ -31,4 +31,13 @@ public class MarvelCharacter {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "Character: '"+ name + "', id: '"+ id + "'";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return name.equals(((MarvelCharacter) obj).getName());
+    }
 }
