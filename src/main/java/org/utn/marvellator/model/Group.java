@@ -71,8 +71,8 @@ public class Group {
 		}
 	}
 
-	public void removeCharacter(MarvelCharacter character){
-		this.characters.remove(character);
+	public boolean removeCharacter(MarvelCharacter character){
+		return this.characters.remove(character);
 	}
 
 	public String getCreatorName() {
