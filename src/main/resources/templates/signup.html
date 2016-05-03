@@ -10,6 +10,7 @@
         <div class="panel-body">
             <form method="post" th:action="@{/signup}" th:object="${signupForm}"
                   th:fragment="signupForm">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div class="flex-aligned-items form-horizontal">
                     <!--/* Show general error task when form contains errors */-->
                     <th:block th:if="${#fields.hasErrors('${signupForm.*}')}">

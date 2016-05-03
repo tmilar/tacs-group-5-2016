@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
+
 public class SignupForm {
 
 	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
@@ -18,6 +20,9 @@ public class SignupForm {
 
 	@Length(min = 2, max = 8)
 	private String userName;
+
+    @NotNull
+    private Role role = Role.USER;
 
 	public String getEmail() {
 		return email;
@@ -42,4 +47,12 @@ public class SignupForm {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
