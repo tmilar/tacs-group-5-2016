@@ -2,7 +2,9 @@ package org.utn.marvellator.controller.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.utn.marvellator.model.CharacterAlreadyInGroupException;
 import org.utn.marvellator.model.Group;
+import org.utn.marvellator.model.MarvelCharacter;
 import org.utn.marvellator.repository.GroupRepository;
 
 import java.util.List;
@@ -20,11 +22,11 @@ public class GroupRestController {
     }
 
     @RequestMapping(value = "api/groups/{id}", method = RequestMethod.PUT)
-    public String addCharacter(@PathVariable String id,@RequestParam("characterId") int idCharacter) {
+    public String addCharacter(@PathVariable String id,@RequestParam("characterId") int idCharacter) throws CharacterAlreadyInGroupException {
         Group group = groupRepository.findFirstById(id);
 
         if(group != null){
-            group.addCharacter(idCharacter);
+            group.addCharacter(new MarvelCharacter(String.valueOf(idCharacter)));
             groupRepository.save(group);
             return "Character added to a group \n";
         }else return "Failure";
