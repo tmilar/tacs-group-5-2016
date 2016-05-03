@@ -31,6 +31,7 @@ public class GroupServiceTest {
     // Fixture data
     private final String testCreatorName = "testUser";
     private final String newGroupName = "test group 1";
+    private final MarvelCharacter testCharacter = new MarvelCharacter("superTestMan");
 
     @After
     public void clean(){
@@ -89,8 +90,6 @@ public class GroupServiceTest {
     @Test
     public void addCharacterToGroup_toAnExistingGroup_addsNewCharacter() throws CharacterAlreadyInGroupException {
         Group existingGroup = createTestGroup();
-        String testName = existingGroup.getName();
-        MarvelCharacter testCharacter = new MarvelCharacter(testName);
 
         groupService.addCharacterToGroup(testCharacter, existingGroup);
 
@@ -99,10 +98,37 @@ public class GroupServiceTest {
         assertTrue(groupRepository.findFirstByName(existingGroup.getName()).getCharacters().contains(testCharacter));
     }
 
+    @Test(expected = CharacterAlreadyInGroupException.class)
+    public void addCharacterToGroup_withAnExistingCharacterToAnExistingGroup_givesError() throws CharacterAlreadyInGroupException{
+        Group existingGroup = createTestGroup();
+        existingGroup.addCharacter(testCharacter);
+        groupRepository.save(existingGroup);
+        assertTrue(groupRepository.findFirstByName(existingGroup.getName()).getCharacters().contains(testCharacter));
+
+        groupService.addCharacterToGroup(testCharacter, existingGroup);
+    }
+
+    @Test
+    public void addCharacterToGroup_with2DifferentCharacters_addsNewCharacters() throws CharacterAlreadyInGroupException {
+        Group existingGroup = createTestGroup();
+        MarvelCharacter char1 = new MarvelCharacter("jose");
+        MarvelCharacter char2 = new MarvelCharacter("luis");
+
+        groupService.addCharacterToGroup(char1, existingGroup);
+        groupService.addCharacterToGroup(char2, existingGroup);
+
+        assertEquals(2, existingGroup.getCharacters().size());
+        assertTrue(groupRepository.findFirstByName(existingGroup.getName()).getCharacters().contains(char1));
+        assertTrue(groupRepository.findFirstByName(existingGroup.getName()).getCharacters().contains(char2));
+    }
+
+    /**
+     * Generate and persist a test group with random group_name and creator_name
+     * @return the created group
+     */
     private Group createTestGroup(){
         Group testGroup = new Group("testGroupName" + UUID.randomUUID(), "testUsername" + UUID.randomUUID());
         return groupRepository.insert(testGroup);
     }
-
 
 }
