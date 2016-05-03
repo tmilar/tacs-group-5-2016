@@ -11,8 +11,6 @@ import org.utn.marvellator.config.*;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-// @Import(MongoDbConfig.class)
-@Import(SpringSecurityConfig.class)
 public class Application {
 
 	@Bean
