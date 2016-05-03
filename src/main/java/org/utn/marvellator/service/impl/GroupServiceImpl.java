@@ -33,4 +33,11 @@ public class GroupServiceImpl implements GroupService {
         group.addCharacter(character);
         groupRepository.save(group);
     }
+
+    @Override
+    public boolean removeCharacterFromGroup(MarvelCharacter character, Group group) {
+        boolean removed = group.removeCharacter(character);
+        groupRepository.save(group);
+        return removed;
+    }
 }

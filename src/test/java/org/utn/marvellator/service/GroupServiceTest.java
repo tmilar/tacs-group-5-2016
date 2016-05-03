@@ -16,6 +16,7 @@ import org.utn.marvellator.repository.GroupRepository;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -121,7 +122,37 @@ public class GroupServiceTest {
         assertTrue(_characterPersistedInGroup(char1, existingGroup));
         assertTrue(_characterPersistedInGroup(char2, existingGroup));
     }
-    
+
+    @Test
+    public void deleteCharacterFromGroup_withAnExistingCharacter_removesTheCharacter() throws CharacterAlreadyInGroupException {
+        Group groupWithCharacter = createTestGroupWithTestCharacter();
+        assertTrue(_characterPersistedInGroup(testCharacter, groupWithCharacter));
+
+        boolean removed = groupService.removeCharacterFromGroup(testCharacter, groupWithCharacter);
+
+        assertTrue(removed);
+        assertFalse(_characterPersistedInGroup(testCharacter, groupWithCharacter));
+    }
+
+    /**
+     * Create and persist a test group with a test character
+     *
+     * @return the created group
+     * @throws CharacterAlreadyInGroupException
+     */
+    private Group createTestGroupWithTestCharacter() throws CharacterAlreadyInGroupException {
+        Group test = createTestGroup();
+        test.addCharacter(testCharacter);
+        return groupRepository.save(test);
+    }
+
+    /**
+     * Utility method to help assert if a character is in a group
+     *
+     * @param character
+     * @param group
+     * @return true if char is actually in group
+     */
     private Boolean _characterPersistedInGroup(MarvelCharacter character, Group group) {
         return groupRepository.findFirstByName(group.getName()).getCharacters().contains(character);
     }

@@ -11,4 +11,6 @@ public interface GroupService {
     void deleteGroupById(String id);
 
     void addCharacterToGroup(MarvelCharacter character, Group existingGroup) throws CharacterAlreadyInGroupException;
+
+    boolean removeCharacterFromGroup(MarvelCharacter testCharacter, Group groupWithCharacter);
 }
