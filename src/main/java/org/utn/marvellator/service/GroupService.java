@@ -10,7 +10,7 @@ public interface GroupService {
 
     void deleteGroupById(String id);
 
-    void addCharacterToGroup(MarvelCharacter character, Group group) throws CharacterAlreadyInGroupException;
+    Group addCharacterToGroup(MarvelCharacter character, Group group) throws CharacterAlreadyInGroupException;
 
     boolean removeCharacterFromGroup(MarvelCharacter character, Group group);
 }

@@ -27,9 +27,9 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void addCharacterToGroup(MarvelCharacter character, Group group) throws CharacterAlreadyInGroupException {
+    public Group addCharacterToGroup(MarvelCharacter character, Group group) throws CharacterAlreadyInGroupException {
         group.addCharacter(character);
-        groupRepository.save(group);
+        return groupRepository.save(group);
     }
 
     @Override
