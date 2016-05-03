@@ -20,14 +20,14 @@ public class Group {
 	private List<MarvelCharacter> characters = new ArrayList<MarvelCharacter>();
 
 	@Field("creator_name")
-	private String creatorName;
+	private String creator;
 
 	public Group(){
 	}
 
-	public Group(String name, String creatorName) {
+	public Group(String name, String creator) {
 		this.name = name;
-		this.creatorName = creatorName;
+		this.creator = creator;
 	}
 
 	public Group(String name) {
@@ -75,16 +75,16 @@ public class Group {
 		return this.characters.remove(character);
 	}
 
-	public String getCreatorName() {
-		return creatorName;
+	public String getCreator() {
+		return creator;
 	}
 
-	public void setCreatorName(String creatorName) {
-		this.creatorName = creatorName;
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
 	@Override
 	public String toString() {
-		return "Group '"+name+"', created by: '"+ creatorName + "', characters: [" + characters.toString() + "]";
+		return "Group '"+name+"', created by: '"+ creator + "', characters: [" + characters.toString() + "]";
 	}
 }
