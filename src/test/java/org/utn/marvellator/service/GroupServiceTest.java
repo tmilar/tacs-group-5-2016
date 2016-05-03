@@ -95,7 +95,7 @@ public class GroupServiceTest {
 
         assertEquals(1, existingGroup.getCharacters().size());
         assertTrue(existingGroup.getCharacters().contains(testCharacter));
-        assertTrue(groupRepository.findFirstByName(existingGroup.getName()).getCharacters().contains(testCharacter));
+        assertTrue(_characterPersistedInGroup(testCharacter, existingGroup));
     }
 
     @Test(expected = CharacterAlreadyInGroupException.class)
@@ -103,7 +103,7 @@ public class GroupServiceTest {
         Group existingGroup = createTestGroup();
         existingGroup.addCharacter(testCharacter);
         groupRepository.save(existingGroup);
-        assertTrue(groupRepository.findFirstByName(existingGroup.getName()).getCharacters().contains(testCharacter));
+        assertTrue(_characterPersistedInGroup(testCharacter, existingGroup));
 
         groupService.addCharacterToGroup(testCharacter, existingGroup);
     }
@@ -118,10 +118,13 @@ public class GroupServiceTest {
         groupService.addCharacterToGroup(char2, existingGroup);
 
         assertEquals(2, existingGroup.getCharacters().size());
-        assertTrue(groupRepository.findFirstByName(existingGroup.getName()).getCharacters().contains(char1));
-        assertTrue(groupRepository.findFirstByName(existingGroup.getName()).getCharacters().contains(char2));
+        assertTrue(_characterPersistedInGroup(char1, existingGroup));
+        assertTrue(_characterPersistedInGroup(char2, existingGroup));
     }
-
+    
+    private Boolean _characterPersistedInGroup(MarvelCharacter character, Group group) {
+        return groupRepository.findFirstByName(group.getName()).getCharacters().contains(character);
+    }
     /**
      * Generate and persist a test group with random group_name and creator_name
      * @return the created group
