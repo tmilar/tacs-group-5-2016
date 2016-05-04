@@ -5,15 +5,15 @@ package org.utn.marvellator.model;
  */
 public class MarvelCharacter {
 
-    private String id;
+    private String marvelId;
     private String name = "";
 
-    public String getId() {
-        return id;
+    public String getMarvelId() {
+        return marvelId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setMarvelId(String marvelId) {
+        this.marvelId = marvelId;
     }
 
     public String getName() {
@@ -33,7 +33,7 @@ public class MarvelCharacter {
 
     @Override
     public String toString() {
-        return "Character: '"+ name + "', id: '"+ id + "'";
+        return "Character: '"+ name + "', marvelId: '"+ marvelId + "'";
     }
 
     @Override

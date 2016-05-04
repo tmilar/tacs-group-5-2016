@@ -8,7 +8,6 @@ import java.net.URLEncoder;
 import java.net.URLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import org.apache.commons.codec.binary.Hex;
@@ -18,9 +17,6 @@ import org.utn.marvellator.model.*;
 import org.utn.marvellator.service.CharacterService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-/**
- * Created by Admin on 22/04/2016.
- */
 @Service
 public class CharacterServiceImpl implements CharacterService {
 
@@ -80,7 +76,7 @@ public class CharacterServiceImpl implements CharacterService {
         for (Object characterjSON : characterJsonArray){
             MarvelCharacter c = new MarvelCharacter();
             JSONObject personaje = (JSONObject)characterjSON;
-            c.setId(String.valueOf(personaje.get("id")));
+            c.setMarvelId(String.valueOf(personaje.get("id")));
             c.setName((String)personaje.get("name"));
             listaFinal.add(c);
         }
