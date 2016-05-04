@@ -1,6 +1,7 @@
 package org.utn.marvellator.service;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,12 +48,14 @@ public class UserServiceTest {
         assertEquals(testUsername, userRepository.findFirstByUserName(testUsername).getUserName());
     }
 
+    @Ignore
     @Test
     public void whenUserLogsInItShouldBeInUserSession(){
         userService.loginUser(testUser);
         assertEquals(loggedUser.getUser(), testUser);
     }
 
+    @Ignore
     @Test
     public void whenUserLogsOutItShouldntBeInSession(){
         userService.logoutUser();
