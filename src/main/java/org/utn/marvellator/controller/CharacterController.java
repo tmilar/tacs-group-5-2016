@@ -17,13 +17,16 @@ public class CharacterController {
     CharacterService characterService;
 
     @RequestMapping(value = "/characters", method = RequestMethod.GET)
-    public String charactersPage(Model model) throws IOException, NoSuchAlgorithmException {
-        model.addAttribute(characterService.getCharacters());
+    public String characters(Model model) throws IOException, NoSuchAlgorithmException {
+        int offset = 0;
+        int limit = 50;
+
+        model.addAttribute(characterService.getCharactersPage(offset, limit));
         return "characters";
     }
 
     @RequestMapping(value = "/ranking", method = RequestMethod.GET)
-    public String rankingPage(Model model) {
+    public String ranking(Model model) {
         return "ranking";
     }
 }
