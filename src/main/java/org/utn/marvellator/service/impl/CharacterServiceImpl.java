@@ -55,16 +55,11 @@ public class CharacterServiceImpl implements CharacterService {
         JSONArray characterJsonArray = jsonObj.getJSONArray("results");
         List<MarvelCharacter> characters = new ArrayList<>();
 
-        for (Object characterjSON : characterJsonArray) {
-            JSONObject character = (JSONObject) characterjSON;
-
-            MarvelCharacter c = new MarvelCharacter();
-            c.setMarvelId(String.valueOf(character.get("id")));
-            c.setName((String) character.get("name"));
-
+        characterJsonArray.forEach( characterJSON -> {
+            MarvelCharacter c = MarvelCharacter.fromJson((JSONObject) characterJSON);
             characters.add(c);
             System.out.println("Read character: " + c);
-        }
+        });
 
         return characters;
     }
