@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.apache.commons.codec.binary.Hex;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.json.*;
 import org.utn.marvellator.model.*;
@@ -22,14 +23,23 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 @Service
 public class CharacterServiceImpl implements CharacterService {
 
+    @Value("${api.marvel.publicKey}")
+    private String publicKey;
+
+    @Value("${api.marvel.privateKey}")
+    private String privateKey;
+
+    @Value("${api.marvel.url}")
+    private String url;
+
+    @Value("${api.marvel.charset}")
+    private String charset;  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
+
+
     @Override
     public List<MarvelCharacter> getCharacters() throws IOException, NoSuchAlgorithmException {
 
-        String url = "http://gateway.marvel.com/v1/public/characters";
-        String charset = "UTF-8";  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
         String timestamp = String.valueOf(new java.util.Date().getTime());
-        String publicKey = "d631b2feff8604a9ba624fb565a6099a";
-        String privateKey = "b5369ef29519aadd53a5f180e148579d80ee2e19";
         String paramToDigets = timestamp + privateKey + publicKey;
 
         byte[] bytesOfMessage = paramToDigets.getBytes(charset);
