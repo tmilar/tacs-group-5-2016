@@ -12,4 +12,5 @@ public interface CharacterService {
 
     List<MarvelCharacter> getCharactersPage(int offset, int limit) throws NoSuchAlgorithmException, IOException;
 
+    Integer getTotalCharacters() throws IOException, NoSuchAlgorithmException;
 }

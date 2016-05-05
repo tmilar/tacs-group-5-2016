@@ -113,4 +113,12 @@ public class CharacterServiceImpl implements CharacterService {
         // TODO get a marvel character by id
         throw new NotImplementedException();
     }
+
+    @Override
+    public Integer getTotalCharacters() throws IOException, NoSuchAlgorithmException {
+        JSONObject responseJson = callMarvelCharactersApi(0, 1);
+
+        Integer total = responseJson.getInt("total");
+        return total;
+    }
 }

@@ -38,4 +38,13 @@ public class CharacterServiceTest {
     public void getCharactersPage_withLimitGreaterThan100_shouldGiveError() throws IOException, NoSuchAlgorithmException {
         characterService.getCharactersPage(0, 101);
     }
+
+    @Test
+    public void getTotalCharacters_shouldAlwaysReturnAValidAmount() throws IOException, NoSuchAlgorithmException {
+
+        Integer marvelCharactersCount = characterService.getTotalCharacters();
+
+        assertNotNull(marvelCharactersCount);
+        assertTrue(marvelCharactersCount > 0 && marvelCharactersCount < 2000);
+    }
 }
