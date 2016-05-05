@@ -8,6 +8,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.utn.marvellator.ApplicationTest;
 import org.utn.marvellator.model.MarvelCharacter;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
@@ -21,7 +23,7 @@ public class CharacterServiceTest {
     private CharacterService characterService;
 
     @Test
-    public void getCharacters_shouldReturnMarvelAPICharacters(){
+    public void getCharacters_shouldReturnMarvelAPICharacters() throws IOException, NoSuchAlgorithmException {
         List<MarvelCharacter> characters = characterService.getCharacters();
 
         assertFalse(characters.isEmpty());

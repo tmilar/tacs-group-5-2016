@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.utn.marvellator.service.CharacterService;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+
 @Controller
 public class CharacterController {
 
@@ -14,7 +17,7 @@ public class CharacterController {
     CharacterService characterService;
 
     @RequestMapping(value = "/characters", method = RequestMethod.GET)
-    public String charactersPage(Model model) {
+    public String charactersPage(Model model) throws IOException, NoSuchAlgorithmException {
         model.addAttribute(characterService.getCharacters());
         return "characters";
     }

@@ -2,6 +2,10 @@ package org.utn.marvellator.service;
 
 import org.utn.marvellator.model.MarvelCharacter;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -9,7 +13,7 @@ import java.util.List;
  */
 public interface CharacterService {
 
-    List<MarvelCharacter> getCharacters();
+    List<MarvelCharacter> getCharacters() throws IOException, NoSuchAlgorithmException;
 
     MarvelCharacter getCharacterById(Integer characterId);
 }
