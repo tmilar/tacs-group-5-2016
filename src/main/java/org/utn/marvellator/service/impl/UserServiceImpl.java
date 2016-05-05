@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
 
     public User getUserById(String id) {
-        return userRepository.findFirstById(id);
+        return userRepository.findOne(id);
     }
 
     public User getUserByUserName(String userName){
