@@ -152,7 +152,7 @@ public class GroupServiceTest {
      * @return true if char is actually in group
      */
     private Boolean _characterPersistedInGroup(MarvelCharacter character, Group group) {
-        return groupRepository.findFirstByName(group.getName()).getCharacters().contains(character);
+        return groupRepository.findOne(group.getId()).getCharacters().contains(character);
     }
     /**
      * Generate and persist a test group with random group_name and creator_name

@@ -9,8 +9,6 @@ import java.util.List;
 @Repository
 public interface GroupRepository extends MongoRepository<Group, String>{
 
-    Group findFirstByName(String name);
     Group findFirstByNameAndCreator(String groupName, String userName);
     List<Group> findByCreator(String userName);
-
 }

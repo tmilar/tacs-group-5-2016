@@ -33,7 +33,7 @@ public class GroupRepositoryTest {
         groupRepository.save(testGroup);
 
         assertEquals(1, groupRepository.count());
-        assertEquals(testName, groupRepository.findFirstByName(testName).getName());
+        assertEquals(testName, groupRepository.findOne(testGroup.getId()).getName());
     }
 
     @Test
@@ -46,7 +46,7 @@ public class GroupRepositoryTest {
         groupRepository.save(testGroup);
 
         assertEquals(1, groupRepository.count());
-        assertEquals(testName2, groupRepository.findFirstByName(testName2).getName());
+        assertEquals(testName2, groupRepository.findOne(testGroup.getId()).getName());
     }
 
     @Test
@@ -69,8 +69,8 @@ public class GroupRepositoryTest {
 
         groupRepository.save(testGroup);
 
-        assertEquals(1, groupRepository.findFirstByName(testName).getCharacters().size());
-        assertTrue(groupRepository.findFirstByName(testName).getCharacters().contains(testCharacter));
+        assertEquals(1, groupRepository.findOne(testGroup.getId()).getCharacters().size());
+        assertTrue(groupRepository.findOne(testGroup.getId()).getCharacters().contains(testCharacter));
     }
 
     @Test
@@ -86,6 +86,6 @@ public class GroupRepositoryTest {
         groupRepository.save(testGroup);
 
         assertEquals(1, groupRepository.count());
-        assertEquals(0, groupRepository.findFirstByName(testName).getCharacters().size());
+        assertTrue(groupRepository.findOne(testGroup.getId()).getCharacters().isEmpty());
     }
 }
