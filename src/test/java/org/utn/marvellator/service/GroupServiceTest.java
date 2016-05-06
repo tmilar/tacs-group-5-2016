@@ -13,6 +13,7 @@ import org.utn.marvellator.model.Group;
 import org.utn.marvellator.model.MarvelCharacter;
 import org.utn.marvellator.repository.GroupRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
@@ -130,6 +131,40 @@ public class GroupServiceTest {
 
         assertTrue(removed);
         assertFalse(_characterPersistedInGroup(testCharacter, groupWithCharacter));
+    }
+
+    @Test
+    public void getGroupsIntersection_with2groupsWithCharacters_shouldReturnCharactersInBothGroups() throws CharacterAlreadyInGroupException {
+
+        Group group1 = createTestGroup();
+        Group group2 = createTestGroup();
+
+        MarvelCharacter char1 =  new MarvelCharacter("char_1");
+        MarvelCharacter char2 =  new MarvelCharacter("char_2");
+        MarvelCharacter char3 =  new MarvelCharacter("char_3");
+        MarvelCharacter char4 =  new MarvelCharacter("char_4");
+        MarvelCharacter char5 =  new MarvelCharacter("char_5");
+
+        // g1 characters
+        group1.addCharacter(char1);
+        group1.addCharacter(char2);
+        group1.addCharacter(char3);
+
+        // g2 different
+        group2.addCharacter(char4);
+        group2.addCharacter(char5);
+
+        // g2 same - intersection
+        group2.addCharacter(char1);
+        group2.addCharacter(char3);
+
+
+        List<MarvelCharacter> intersectionCharacters = groupService.getIntersectionCharacters(group1, group2);
+
+        assertEquals(2, intersectionCharacters.size());
+        assertTrue(intersectionCharacters.contains(char1));
+        assertTrue(intersectionCharacters.contains(char3));
+
     }
 
     /**

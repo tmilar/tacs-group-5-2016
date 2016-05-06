@@ -8,6 +8,12 @@ import org.utn.marvellator.model.MarvelCharacter;
 import org.utn.marvellator.repository.GroupRepository;
 import org.utn.marvellator.service.GroupService;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 @Service
 public class GroupServiceImpl implements GroupService {
 
@@ -37,5 +43,18 @@ public class GroupServiceImpl implements GroupService {
         boolean removed = group.removeCharacter(character);
         groupRepository.save(group);
         return removed;
+    }
+
+    @Override
+    public List<MarvelCharacter> getIntersectionCharacters(Group g1, Group g2) {
+
+        List<MarvelCharacter> g1Characters = g1.getCharacters();
+        List<MarvelCharacter> g2Characters = g2.getCharacters();
+
+        List<MarvelCharacter> intersectionCharacters =  g1Characters.stream()
+                                                            .filter( g1char -> g2Characters.contains(g1char))
+                                                            .collect(Collectors.toList());
+
+        return intersectionCharacters;
     }
 }
