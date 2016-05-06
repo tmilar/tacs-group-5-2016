@@ -134,7 +134,7 @@ public class GroupServiceTest {
     }
 
     @Test
-    public void getGroupsIntersection_with2groupsWithCharacters_shouldReturnCharactersInBothGroups() throws CharacterAlreadyInGroupException {
+    public void getIntersectionCharacters_with2groupsWithCharacters_shouldReturnCharactersInBothGroups() throws CharacterAlreadyInGroupException {
 
         Group group1 = createTestGroup();
         Group group2 = createTestGroup();
