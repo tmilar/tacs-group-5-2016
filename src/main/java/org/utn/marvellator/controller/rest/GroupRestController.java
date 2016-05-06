@@ -79,4 +79,22 @@ public class GroupRestController {
             return "" + group +" deleted.";
         }else return "" + groupName + " not found for user " + userName;
     }
+
+    // TODO:1 assign this only to ADMIN role
+    // TODO:2 review actual API/endpoint for this... is OK this way or maybe pass the 2nd group as a path parameter?
+    //    ie. /{idgroup1}?intersect={idgroup2} // maybe better?
+    @RequestMapping(value = "/{idGroup1}/intersection/{idGroup2}", method = RequestMethod.GET)
+    public ResponseEntity<List<MarvelCharacter>> groupsIntersection(@PathVariable String idGroup1,
+                                                                    @PathVariable String idGroup2) {
+        Group group1 = groupRepository.findOne(idGroup1);
+        Group group2 = groupRepository.findOne(idGroup2);
+
+        if (group1 == null || group2 == null) {
+            return new ResponseEntity<>( HttpStatus.NOT_FOUND );
+        }
+
+        List<MarvelCharacter> intersection = groupService.getIntersectionCharacters(group1, group2);
+
+        return new ResponseEntity<>(intersection, HttpStatus.OK);
+    }
 }
