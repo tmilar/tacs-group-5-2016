@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +24,9 @@ public class User {
 
 	private String email;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 	private Set<Integer> favorites = new HashSet<Integer>();
 
 	public User(){
@@ -29,6 +34,11 @@ public class User {
 
 	public User(String name, String userName, String password) {
 		this.name = name;
+		this.userName = userName;
+		this.password = password;
+	}
+
+	public User(String userName, String password) {
 		this.userName = userName;
 		this.password = password;
 	}
@@ -89,4 +99,12 @@ public class User {
 	public void removeFavorite(Integer characterId){
 		this.favorites.remove(characterId);
 	}
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }

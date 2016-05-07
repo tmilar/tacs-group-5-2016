@@ -1,0 +1,29 @@
+package org.utn.marvellator.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.utn.marvellator.model.CurrentUser;
+import org.utn.marvellator.model.User;
+import org.utn.marvellator.service.UserService;
+
+@Service
+public class CurrentUserDetailsService implements UserDetailsService {
+
+    @Autowired
+    private UserService userService;
+
+
+    public CurrentUserDetailsService() {
+    }
+
+    @Override
+    public CurrentUser loadUserByUsername(String userName) throws UsernameNotFoundException {
+        User user;
+        user = userService.getUserByUserName(userName);
+        if (user == null)
+            throw new UsernameNotFoundException(String.format("User with username=%s was not found", userName));
+        return new CurrentUser(user);
+    }
+}

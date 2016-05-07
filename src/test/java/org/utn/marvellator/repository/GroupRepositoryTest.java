@@ -1,13 +1,15 @@
 package org.utn.marvellator.repository;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.utn.marvellator.ApplicationTest;
+import org.utn.marvellator.model.CharacterAlreadyInGroupException;
 import org.utn.marvellator.model.Group;
-import org.utn.marvellator.repository.GroupRepository;
+import org.utn.marvellator.model.MarvelCharacter;
 
 import static org.junit.Assert.*;
 
@@ -18,6 +20,11 @@ public class GroupRepositoryTest {
     @Autowired
     private GroupRepository groupRepository;
 
+    @Before
+    public void Setup(){
+        groupRepository.deleteAll();
+    }
+
     @Test
     public void shouldCreateAndPersistGroup() {
         String testName = "testGroup";
@@ -26,7 +33,7 @@ public class GroupRepositoryTest {
         groupRepository.save(testGroup);
 
         assertEquals(1, groupRepository.count());
-        assertEquals(testName, groupRepository.findFirstByName(testName).getName());
+        assertEquals(testName, groupRepository.findOne(testGroup.getId()).getName());
     }
 
     @Test
@@ -39,7 +46,7 @@ public class GroupRepositoryTest {
         groupRepository.save(testGroup);
 
         assertEquals(1, groupRepository.count());
-        assertEquals(testName2, groupRepository.findFirstByName(testName2).getName());
+        assertEquals(testName2, groupRepository.findOne(testGroup.getId()).getName());
     }
 
     @Test
@@ -53,24 +60,23 @@ public class GroupRepositoryTest {
     }
 
     @Test
-    public void shouldPersistCharacterInAGroup() {
+    public void shouldPersistCharacterInAGroup() throws CharacterAlreadyInGroupException {
         String testName = "testGroup";
-        int testCharacter = 666;
+        MarvelCharacter testCharacter = new MarvelCharacter("superTestMan");
 
         Group testGroup = new Group(testName);
-        testGroup.addCharacter(testCharacter);
         testGroup.addCharacter(testCharacter);
 
         groupRepository.save(testGroup);
 
-        assertEquals(1, groupRepository.findFirstByName(testName).getCharacters().size());
-        assertTrue(groupRepository.findFirstByName(testName).getCharacters().contains(testCharacter));
+        assertEquals(1, groupRepository.findOne(testGroup.getId()).getCharacters().size());
+        assertTrue(groupRepository.findOne(testGroup.getId()).getCharacters().contains(testCharacter));
     }
 
     @Test
-    public void shouldDeleteAndNoLongerPersistCharacterInAGroup() {
+    public void shouldDeleteAndNoLongerPersistCharacterInAGroup() throws CharacterAlreadyInGroupException {
         String testName = "testGroup";
-        int testCharacter = 666;
+        MarvelCharacter testCharacter = new MarvelCharacter();
 
         Group testGroup = new Group(testName);
         testGroup.addCharacter(testCharacter);
@@ -80,6 +86,6 @@ public class GroupRepositoryTest {
         groupRepository.save(testGroup);
 
         assertEquals(1, groupRepository.count());
-        assertEquals(0, groupRepository.findFirstByName(testName).getCharacters().size());
+        assertTrue(groupRepository.findOne(testGroup.getId()).getCharacters().isEmpty());
     }
 }

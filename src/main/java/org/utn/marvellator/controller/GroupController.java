@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class GroupController {
 
     @RequestMapping(value = "/groups/{id}", method = RequestMethod.GET)
-    public String groupPage(@PathVariable int id) {
-        return "A group Page \n";
+    public String groupById(@PathVariable int id) {
+        return "group-details";
     }
 
     @RequestMapping(value = "/groups", method = RequestMethod.GET)
-    public String groupsPage() {
-        return "Groups Page \n";
+    public String groups() {
+
+        return "groups";
     }
 
 
