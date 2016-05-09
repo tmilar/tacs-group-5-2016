@@ -26,7 +26,7 @@ public class SessionController {
     }
 
     //The POST and actual handling of the form will be done by Spring Security
-    /*@RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@Valid @ModelAttribute User user, Errors errors) {
         if (errors.hasErrors()) {
             return "home";
@@ -34,7 +34,7 @@ public class SessionController {
         userService.loginUser(user);
       //  userService.loginUser(new UserSession(user.getUserName(), user.getPassword()));
         return "redirect:/index";
-    }*/
+    }
 
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
