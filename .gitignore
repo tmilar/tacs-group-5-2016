@@ -1,5 +1,7 @@
 # created by https://www.gitignore.io/api/java,intellij,netbeans,maven
 
+*.log
+
 ### Java ###
 *.class
 
