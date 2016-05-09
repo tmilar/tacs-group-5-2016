@@ -1,5 +1,6 @@
 package org.utn.marvellator.service;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,11 @@ public class CharacterServiceTest {
 
         assertNotNull(marvelCharactersCount);
         assertTrue(marvelCharactersCount > 0 && marvelCharactersCount < 2000);
+    }
+
+    @Ignore
+    @Test
+    public void getCharacterById_shouldReturnAMarvelCharacter(){
+        assertNotNull(characterService.getCharacterById("10010905"));
     }
 }
