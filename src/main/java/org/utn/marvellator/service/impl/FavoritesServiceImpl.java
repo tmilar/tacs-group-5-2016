@@ -2,14 +2,14 @@ package org.utn.marvellator.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.utn.marvellator.model.CharacterAlreadyFavoritedException;
 import org.utn.marvellator.model.MarvelCharacter;
 import org.utn.marvellator.model.User;
-import org.utn.marvellator.service.CharacterService;
+import org.utn.marvellator.repository.UserRepository;
 import org.utn.marvellator.service.FavoritesService;
 import org.utn.marvellator.service.UserService;
-
 import java.util.List;
-import java.util.stream.Collectors;
+import static java.util.Objects.isNull;
 
 @Service
 public class FavoritesServiceImpl implements FavoritesService {
@@ -18,25 +18,31 @@ public class FavoritesServiceImpl implements FavoritesService {
     private UserService userService;
 
     @Autowired
-    private CharacterService characterService;
+    private UserRepository userRepository;
 
     @Override
-    public List<MarvelCharacter> getFavorites(String username) {
+    public List<MarvelCharacter> getFavorites(String username) throws UnknownUserException{
         User user = userService.getUserByUserName(username);
-        return user.getFavorites().stream().map(characterService::getCharacterById).collect(Collectors.toList());
+        if (isNull(user)) {
+            throw new UnknownUserException(username);
+        }
+       // return user.getFavorites().stream().map(characterService::getCharacterById).collect(Collectors.toList());
+        return user.getFavorites();
     }
 
     @Override
-    public MarvelCharacter addFavorite(String username, Integer character) {
-        User user = userService.getUserByUserName(username);
-        user.removeFavorite(character);
-        return characterService.getCharacterById(character);
-    }
-
-    @Override
-    public MarvelCharacter removeFavorite(String username, Integer character) {
+    public MarvelCharacter addFavorite(String username, MarvelCharacter character) throws CharacterAlreadyFavoritedException {
         User user = userService.getUserByUserName(username);
         user.addFavorite(character);
-        return characterService.getCharacterById(character);
+        userRepository.save(user);
+        return character;
+    }
+
+    @Override
+    public MarvelCharacter removeFavorite(String username, MarvelCharacter character) {
+        User user = userService.getUserByUserName(username);
+        user.removeFavorite(character);
+        userRepository.save(user);
+        return character;
     }
 }
