@@ -182,8 +182,8 @@ public class GroupServiceTest {
     /**
      * Utility method to help assert if a character is in a group
      *
-     * @param character
-     * @param group
+     * @param character character wanted to be found
+     * @param group that may contain the character
      * @return true if char is actually in group
      */
     private Boolean _characterPersistedInGroup(MarvelCharacter character, Group group) {
