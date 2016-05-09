@@ -6,7 +6,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Document(collection = "user")
@@ -24,12 +26,12 @@ public class User {
 
 	private String email;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+	@Enumerated(EnumType.STRING)
+	private Role role;
 
-	private Set<Integer> favorites = new HashSet<Integer>();
+	private List<MarvelCharacter> favorites = new ArrayList<>();
 
-	public User(){
+	public User() {
 	}
 
 	public User(String name, String userName, String password) {
@@ -84,27 +86,47 @@ public class User {
 		return email;
 	}
 
-	public Set<Integer> getFavorites() {
+	/**
+	 *
+	 * @return returns all favorites
+     */
+	public List<MarvelCharacter> getFavorites() {
 		return favorites;
 	}
 
-	public void setFavorites(Set<Integer> favorites) {
+	public void setFavorites(List<MarvelCharacter> favorites) {
 		this.favorites = favorites;
 	}
 
-	public void addFavorite(Integer characterId){
-		this.favorites.add(characterId);
+	/**
+	 *
+	 * @param character character that wants to add
+	 * @throws CharacterAlreadyFavoritedException
+     */
+	public void addFavorite(MarvelCharacter character) throws CharacterAlreadyFavoritedException {
+		checkAlreadyFavorited(character);
+		favorites.add(character);
 	}
 
-	public void removeFavorite(Integer characterId){
-		this.favorites.remove(characterId);
+	public void removeFavorite(MarvelCharacter character) {
+		favorites.remove(character);
 	}
 
-    public Role getRole() {
-        return role;
-    }
+	public Role getRole() {
+		return role;
+	}
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	/**
+	 * @param character character that wants to be checked if repeated
+	 * @throws CharacterAlreadyFavoritedException
+	 */
+	private void checkAlreadyFavorited(MarvelCharacter character) throws CharacterAlreadyFavoritedException {
+		if (favorites.contains(character)) {
+			throw new CharacterAlreadyFavoritedException(character);
+		}
+	}
 }
