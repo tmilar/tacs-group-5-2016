@@ -110,6 +110,12 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
+    public MarvelCharacter getCharacterById(String characterId) {
+        // TODO
+        throw new NotImplementedException();
+    }
+
+    @Override
     public Integer getTotalCharacters() throws IOException, NoSuchAlgorithmException {
         JSONObject responseJson = callMarvelCharactersApi(0, 1);
 
