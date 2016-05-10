@@ -33,10 +33,6 @@ public class UserController {
         userService.registerUser(new User(name, userName, password));
     }
 
-    @RequestMapping(value = "/favorites", method = RequestMethod.GET)
-    public String favoritesPage(Model model) {
-        return "favorites";
-    }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public User users(@RequestParam(value = "id", defaultValue = "A cute static id ") String name) {
@@ -55,7 +51,7 @@ public class UserController {
             return "signup";
         }
 
-        userService.registerUser(new User(signupForm.getEmail(), signupForm.getUserName(), signupForm.getPassword()) );
+        userService.registerUser(new User(signupForm.getUserName(), signupForm.getUserName(), signupForm.getPassword()) );
         //TODO show somehow a message saying that the user has been registered...
         return "redirect:/index";
     }
