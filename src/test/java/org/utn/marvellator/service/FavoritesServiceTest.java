@@ -44,6 +44,7 @@ public class FavoritesServiceTest {
         userRepository.deleteAll();
     }
 
+    @Test
     public void addFavorite_withTestUser_shouldSaveIt() throws CharacterAlreadyFavoritedException{
         MarvelCharacter annihilus = new MarvelCharacter("Annihilus", "1009154");
         favoritesService.addFavorite("marshall", annihilus);
