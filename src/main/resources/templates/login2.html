@@ -1,11 +1,25 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"
-      th:include="unknownuserform :: home">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>LOGIN</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/css/bootstrap.min.css}"/>
+    <link href="../static/css/core.css" rel="stylesheet" media="screen"
+          th:href="@{/css/core.css}"/>
+    <script src="../static/js/jquery.js"
+            th:src="@{/js/jquery.js}"></script>
+    <script src="../static/js/bootstrap.min.js"
+            th:src="@{/js/bootstrap.min.js}"></script>
+    <link href="../static/css/styles.css" rel="stylesheet" media="screen"
+          th:href="@{/css/styles.css}"/>
 </head>
 <body>
-<div th:fragment="unknown-user-form">
+<div>
+    <div class="custom-container medium">
+        <p>Login</p>
+    </div>
     <div class="panel panel-default transparent">
         <div class="panel-body">
             <form method="post" th:action="@{/login}" th:object="${user}" th:fragment="user">
@@ -18,15 +32,15 @@
                 <fieldset class="flex-aligned-items form-horizontal">
                     <div class="form-group margin"> <!--th:classappend="${#fields.hasErrors('userName')}? 'has-error'"-->
                         <input name="userName" id="userName" type="text" class="form-control" required="required" placeholder="Username"/>
-                              <!-- th:field="*{userName}"-->
-                      <!--  <span class="help-block text-small" th:if="${#fields.hasErrors('userName')}"
-                              th:errors="*{userName}">Incorrect username</span>-->
+                        <!-- th:field="*{userName}"-->
+                        <!--  <span class="help-block text-small" th:if="${#fields.hasErrors('userName')}"
+                                th:errors="*{userName}">Incorrect username</span>-->
                     </div>
                     <div class="form-group margin"><!-- th:classappend="${#fields.hasErrors('password')}? 'has-error'">-->
                         <input name="password" id="password" type="password" class="form-control" placeholder="Password"/>
-                               <!--th:field="*{password}"-->
-                      <!--  <span class="help-block text-small" th:if="${#fields.hasErrors('password')}"
-                              th:errors="*{password}">Incorrect password</span>-->
+                        <!--th:field="*{password}"-->
+                        <!--  <span class="help-block text-small" th:if="${#fields.hasErrors('password')}"
+                                th:errors="*{password}">Incorrect password</span>-->
                     </div>
                     <button type="submit" class="btn btn-large btn-warning">Log in</button>
                 </fieldset>

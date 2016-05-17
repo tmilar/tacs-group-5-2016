@@ -11,7 +11,7 @@ import org.utn.marvellator.config.*;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-//@Import(SpringSecurityConfig.class)
+@Import(SpringSecurityConfig.class)
 public class Application {
 
 	@Bean

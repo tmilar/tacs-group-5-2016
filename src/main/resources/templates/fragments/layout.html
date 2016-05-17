@@ -30,7 +30,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#" th:href="@{/index}">Home</a></li>
+                <li><a href="#">Home</a></li>
             </ul>
             <ul class="nav navbar-nav">
                 <li><a href="#" th:href="@{/characters}">Marvel Characters</a></li>
@@ -40,6 +40,11 @@
             </ul>
             <ul class="nav navbar-nav">
                 <li><a href="#" th:href="@{/groups}">My groups</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><form id="logoutForm" action="/logout" method="POST" role="form">
+                    <button type="submit">Logout</button>
+                </form></li>
             </ul>
         </div>
         <!--/.nav-collapse -->

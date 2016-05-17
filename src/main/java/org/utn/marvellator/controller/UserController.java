@@ -53,6 +53,6 @@ public class UserController {
 
         userService.registerUser(new User(signupForm.getUserName(), signupForm.getUserName(), signupForm.getPassword()) );
         //TODO show somehow a message saying that the user has been registered...
-        return "redirect:/index";
+        return "redirect:/home";
     }
 }
