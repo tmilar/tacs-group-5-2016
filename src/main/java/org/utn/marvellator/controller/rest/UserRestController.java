@@ -7,6 +7,8 @@ import org.utn.marvellator.model.MarvelCharacter;
 import org.utn.marvellator.service.CharacterService;
 import org.utn.marvellator.service.FavoritesService;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Set;
 
@@ -21,7 +23,14 @@ public class UserRestController {
 
     @RequestMapping(value = "api/users/{username}/favorites", method = RequestMethod.DELETE)
     public MarvelCharacter deleteFavorite(@PathVariable String username, @RequestParam("characterId") String idCharacter) {
-        MarvelCharacter character = characterService.getCharacterById(idCharacter);
+        MarvelCharacter character = null;
+        try {
+            character = characterService.getCharacterById(idCharacter);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         return favoritesService.removeFavorite(username, character);
     }
 
@@ -32,8 +41,13 @@ public class UserRestController {
     }
 
     @RequestMapping(value = "api/users/{username}/favorites", method = RequestMethod.POST)
-    public MarvelCharacter addFavorite(@PathVariable String username, @RequestParam("characterId") String idCharacter) throws CharacterAlreadyFavoritedException{
-        MarvelCharacter character = characterService.getCharacterById(idCharacter);
+    public MarvelCharacter addFavorite(@PathVariable String username, @RequestParam("characterId") String idCharacter) throws CharacterAlreadyFavoritedException, NoSuchAlgorithmException {
+        MarvelCharacter character = null;
+        try {
+            character = characterService.getCharacterById(idCharacter);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return favoritesService.addFavorite(username, character);
     }
 }

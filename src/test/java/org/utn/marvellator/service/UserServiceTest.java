@@ -1,5 +1,6 @@
 package org.utn.marvellator.service;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -38,24 +39,26 @@ public class UserServiceTest {
         testUser.setUserName("testUsername");
         testUser.setPassword("pwd123");
         testUser.setEmail("marvellatoruser@gmail.com");
+        userService.registerUser(testUser);
+    }
+
+    @After
+    public void clean(){
+        userRepository.deleteAll();
     }
 
     @Test
     public void registerUser_withATestUser_shouldCreateAndSaveTestUser(){
-        userService.registerUser(testUser);
-        assertEquals(1, userRepository.count());
         String testUsername = testUser.getUserName();
         assertEquals(testUsername, userRepository.findFirstByUserName(testUsername).getUserName());
     }
 
-    @Ignore
     @Test
     public void whenUserLogsInItShouldBeInUserSession(){
         userService.loginUser(testUser);
         assertEquals(loggedUser.getUser(), testUser);
     }
 
-    @Ignore
     @Test
     public void whenUserLogsOutItShouldntBeInSession(){
         userService.logoutUser();

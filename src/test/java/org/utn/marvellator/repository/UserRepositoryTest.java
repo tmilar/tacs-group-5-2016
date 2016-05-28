@@ -1,5 +1,6 @@
 package org.utn.marvellator.repository;
 
+import org.apache.coyote.http11.upgrade.NioServletOutputStream;
 import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -14,6 +15,9 @@ import org.utn.marvellator.model.MarvelCharacter;
 import org.utn.marvellator.model.User;
 import org.utn.marvellator.service.CharacterService;
 import org.utn.marvellator.service.FavoritesService;
+
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import static org.junit.Assert.*;
 
@@ -59,11 +63,10 @@ public class UserRepositoryTest {
         userRepository.save(new User(testUsername));
     }
 
-    @Ignore
     @Test
-    public void shouldAssignAndPersistFavorite() throws CharacterAlreadyFavoritedException{
+    public void shouldAssignAndPersistFavorite() throws CharacterAlreadyFavoritedException, IOException, NoSuchAlgorithmException{
         String testUsername = "testUserName2";
-        Integer testCharacterId = 1;
+        String testCharacterId = "1017100";
         User testUser = new User(testUsername);
         MarvelCharacter character = characterService.getCharacterById(testCharacterId);
         testUser.addFavorite(character);
@@ -72,11 +75,11 @@ public class UserRepositoryTest {
         assertEquals(1, userRepository.findFirstByUserName(testUsername).getFavorites().size());
         assertTrue(userRepository.findFirstByUserName(testUsername).getFavorites().contains(character));
     }
-    @Ignore
+
     @Test
-    public void shouldRemoveAndNoLongerPersistFavorite() throws CharacterAlreadyFavoritedException{
+    public void shouldRemoveAndNoLongerPersistFavorite() throws CharacterAlreadyFavoritedException, IOException, NoSuchAlgorithmException{
         String testUsername = "testUserName3";
-        Integer testCharacterId = 1;
+        String testCharacterId = "1017100";
         User testUser = new User(testUsername);
         MarvelCharacter character = characterService.getCharacterById(testCharacterId);
         testUser.addFavorite(character);

@@ -1,5 +1,6 @@
 package org.utn.marvellator.service;
 
+import org.apache.coyote.http11.upgrade.NioServletOutputStream;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,9 +50,9 @@ public class CharacterServiceTest {
         assertTrue(marvelCharactersCount > 0 && marvelCharactersCount < 2000);
     }
 
-    @Ignore
     @Test
-    public void getCharacterById_shouldReturnAMarvelCharacter(){
-        assertNotNull(characterService.getCharacterById("10010905"));
+    public void getCharacterById_shouldReturnAMarvelCharacter() throws IOException, NoSuchAlgorithmException{
+        MarvelCharacter marvelCharacter1 = characterService.getCharacterById("1009154");
+        assertEquals(marvelCharacter1.getMarvelId(), "1009154");
     }
 }
