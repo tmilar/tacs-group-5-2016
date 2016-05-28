@@ -11,7 +11,7 @@ import org.utn.marvellator.model.UserSession;
 @Controller
 public class HomeController {
 
-    @RequestMapping(value = {"/home", "/index"})
+    @RequestMapping(value = {"/","/home", "/index"})
     public String home() {
         return "index";
     }
