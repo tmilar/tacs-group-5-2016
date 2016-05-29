@@ -13,7 +13,7 @@ public interface FavoritesService {
 
     MarvelCharacter addFavorite(String username, MarvelCharacter character) throws CharacterAlreadyFavoritedException;
 
-    HashMap<MarvelCharacter, String> favoritesWithStatus(List<MarvelCharacter> favorites, User user);
+    HashMap<MarvelCharacter, Boolean> favoritesWithStatus(List<MarvelCharacter> favorites, User user);
 
     MarvelCharacter removeFavorite(String username, MarvelCharacter character);
 }

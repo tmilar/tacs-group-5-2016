@@ -36,13 +36,13 @@
         <tr th:each="character : ${characters}">
             <td th:text="${character.key.marvelId}"></td>
             <td th:text="${character.key.name}"></td>
-            <td th:switch="${character.value}">
-            <div th:case="'Not favorited'">
+            <td>
+            <div th:unless="${character.value}">
                 <form role="form">
                     <button th:id="'addFavorite-'+${character.key.marvelId}" type="submit" class="btn btn-default addFavorite">Add to favorites</button>
                 </form>
             </div>
-            <div th:case="*">
+            <div th:if="${character.value}">
                 <form role="form">
                     <button th:id="'removeFavorite-'+${character.key.marvelId}" type="submit" class="btn btn-default removeFavorite">Remove from favorites</button>
                 </form>

@@ -5,18 +5,20 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.utn.marvellator.model.CharacterAlreadyInGroupException;
-import org.utn.marvellator.model.Group;
-import org.utn.marvellator.model.MarvelCharacter;
+import org.utn.marvellator.model.*;
 import org.utn.marvellator.repository.GroupRepository;
 import org.utn.marvellator.service.GroupService;
+import org.utn.marvellator.service.impl.CurrentUserDetailsService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/groups")
 public class GroupRestController {
 
+    @Autowired
+    private CurrentUserDetailsService currentUserDetailsService;
     @Autowired
     private GroupRepository groupRepository;
 
@@ -43,12 +45,10 @@ public class GroupRestController {
         return groups;
     }
 
-    @RequestMapping(value = "/{userName}/{groupName}", method = RequestMethod.POST)
-    public Group createGroup(@PathVariable String userName,
-                           @PathVariable String groupName) {
-        Group group = groupService.createGroup(groupName, userName);
-
-        return group;
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public void createGroup(@RequestBody GroupWrapper group) {
+        User user = currentUserDetailsService.getCurrentUser();
+        groupService.createGroup(group.getName(), user.getUserName());
     }
 
     @RequestMapping(value = "/{userName}/{groupName}", method = RequestMethod.PUT)
@@ -68,16 +68,9 @@ public class GroupRestController {
         return new ResponseEntity<Group>( HttpStatus.NOT_FOUND );
     }
 
-    @RequestMapping(value = "/{userName}/{groupName}", method = RequestMethod.DELETE)
-    public String deleteGroup(@PathVariable String userName,
-                              @PathVariable String groupName) {
-        Group group = groupRepository.findFirstByNameAndCreator(groupName, userName);
-
-
-        if(group != null){
-            groupRepository.delete(group);
-            return "" + group +" deleted.";
-        }else return "" + groupName + " not found for user " + userName;
+    @RequestMapping(value = "/", method = RequestMethod.DELETE)
+    public void deleteGroup(@RequestBody GroupWrapper group) {
+        groupService.deleteGroupById(group.getId());
     }
 
     // TODO:1 assign this only to ADMIN role

@@ -41,9 +41,9 @@ public class FavoritesServiceImpl implements FavoritesService {
     }
 
     @Override
-    public HashMap<MarvelCharacter, String> favoritesWithStatus(List<MarvelCharacter> characters, User user){
-        HashMap<MarvelCharacter, String> charactersWithStatus = new HashMap<>();
-        characters.forEach(character->charactersWithStatus.put(character, user.statusOfCharacter(character)));
+    public HashMap<MarvelCharacter, Boolean> favoritesWithStatus(List<MarvelCharacter> characters, User user){
+        HashMap<MarvelCharacter, Boolean> charactersWithStatus = new HashMap<>();
+        characters.forEach(character->charactersWithStatus.put(character, user.hasFavorite(character)));
         return charactersWithStatus;
     }
 

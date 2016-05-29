@@ -130,7 +130,11 @@ public class User {
 		}
 	}
 
+	public Boolean hasFavorite(MarvelCharacter character){
+		return favorites.contains(character);
+	}
+
 	public String statusOfCharacter(MarvelCharacter character){
-		return favorites.contains(character)? "Favorited" : "Not favorited";
+		return hasFavorite(character)? "Favorited" : "Not favorited";
 	}
 }

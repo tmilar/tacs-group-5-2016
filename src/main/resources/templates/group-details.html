@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:include="fragments/layout :: layout">
+      th:include="fragments/layout :: corelayout">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Group detail</title>
 </head>
 <body>
-<div th:content="content">
-    <h1 th:text="${'Name: ' + group.name}"></h1>
+<div th:fragment="pagecontent">
+    <h1 th:text="${group.name}"></h1>
 
-    <p th:if="${#lists.isEmpty(group.characters)}">
+    <p th:if="${group.characters.empty}">
         No characters yet...<a href="">Add a new one?</a>
     </p>
 
@@ -23,10 +23,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${#lists.isEmpty(group.characters)}">
+        <tr th:if="${group.characters.empty}">
             <td colspan="4">No characters added yet</td>
         </tr>
-        <tr th:each="character, stat : ${group.characters}">
+        <tr th:unless="${group.characters.empty}" th:each="character, stat : ${group.characters}">
             <td th:text="${stat.count}">
                 1
             </td>

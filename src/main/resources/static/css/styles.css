@@ -9,7 +9,8 @@
     flex-direction: column;
 }
 
-.flex-aligned-items.horiz {
+.flex-aligned-items.horiz,
+.flex-row{
     flex-direction: row;
     align-items: center;
     justify-content: space-around;

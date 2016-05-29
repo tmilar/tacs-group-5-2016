@@ -6,24 +6,49 @@ $(document).ready(function(){
 
     $('.removeFavorite').on('click', function(){
         manageFavorite("DELETE", $(this));
-    })
+    });
 
+    $('#createGroup').on('click', function(){
+        var name = $('#group-name').val();
+        var params = JSON.stringify({
+            name  : name
+        });
+       manageGroup("POST", params);
+    });
 
+    $('.removeGroup').on('click', function(){
+        var id = $(this).prop('id');
+        var params = JSON.stringify({
+            id: id
+        });
+        manageGroup("DELETE", params);
+    });
 });
 
-function manageFavorite(type, self){
+function manageGroup(type, params){
+    sendByAjax(type,params,"/api/groups/");
+}
 
+function manageFavorite(type, self){
     var id = trimByHyphen(self.prop('id'));
     var params = JSON.stringify({
         marvelId : id
     });
-    console.log(id);
+    sendByAjax(type, params, "/api/users/favorites");
+
+}
+
+function trimByHyphen(val){
+    return val.substr(val.indexOf("-") + 1);
+}
+
+function sendByAjax(type, params, url){
     $.ajax({
         type: type,
         dataType: 'json',
         data: params,
         contentType: "application/json; charset=utf-8",
-        url: "/api/users/favorites",
+        url: url,
         success: function(response){
             console.log(response);
         },
@@ -32,8 +57,4 @@ function manageFavorite(type, self){
         }
     });
     location.reload();
-}
-
-function trimByHyphen(val){
-    return val.substr(val.indexOf("-") + 1);
 }

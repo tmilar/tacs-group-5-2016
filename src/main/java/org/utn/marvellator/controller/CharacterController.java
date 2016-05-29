@@ -58,10 +58,10 @@ public class CharacterController {
 
     @RequestMapping(value = "/favorites", method = RequestMethod.GET)
     public String favoritesPage(Model model) {
-        //  String username = loggedUser.getUser().getUserName();
-        model.addAttribute(favoritesService.getFavorites("eminem"));
+        User user = currentUserDetailsService.getCurrentUser();
+        List<MarvelCharacter> characters = favoritesService.getFavorites(user.getUserName());
+        model.addAttribute("characters", favoritesService.favoritesWithStatus(characters, user));
         return "favorites";
-        // return username;
     }
 
 
