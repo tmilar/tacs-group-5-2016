@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:include="fragments/layout :: corelayout">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Ranking of characters ordered by times favorited</title>
 </head>
 <body>
-
+<div th:fragment="pagecontent">
+    <div class="panel panel-default">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Character</th>
+                    <th>Times favorited</th>
+                </tr>
+            </thead>
+            <tbody th:if="${ranking != null}">
+                <tr th:each="character : ${ranking}">
+                    <td th:text="${character.key}"></td>
+                    <td th:text="${character.value}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>

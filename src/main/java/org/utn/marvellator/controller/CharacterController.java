@@ -12,14 +12,13 @@ import org.utn.marvellator.model.User;
 import org.utn.marvellator.model.UserSession;
 import org.utn.marvellator.service.CharacterService;
 import org.utn.marvellator.service.FavoritesService;
+import org.utn.marvellator.service.UserService;
 import org.utn.marvellator.service.impl.CurrentUserDetailsService;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 @Controller
 public class CharacterController {
@@ -32,6 +31,9 @@ public class CharacterController {
 
     @Autowired
     FavoritesService favoritesService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     UserSession loggedUser;
@@ -67,8 +69,36 @@ public class CharacterController {
 
     @RequestMapping(value = "/ranking", method = RequestMethod.GET)
     public String ranking(Model model) {
+        HashMap<String,Integer> ranking = new HashMap<>();
+        List<User> users = userService.getAllUsers();
+
+        for(User user : users){
+            List<MarvelCharacter> favorites = user.getFavorites();
+            for(MarvelCharacter character : favorites){
+                Integer count = ranking.get(character.getName());
+                ranking.put(character.getName(), count != null? count + 1 : 1);
+            }
+        }
+
+        ranking = sortByValue(ranking);
+        model.addAttribute("ranking", ranking);
         return "ranking";
     }
 
+    //Sortear map por sus values, copiado furiosamente de Stack Overflow
+    private <K, V extends Comparable<? super V>> HashMap<K, V> sortByValue( HashMap<K, V> map ) {
+        HashMap<K, V> result = new LinkedHashMap<>();
+        Stream<HashMap.Entry<K, V>> st = map.entrySet().stream();
 
+        st.sorted(
+            new Comparator<HashMap.Entry<K,V>>() {
+                @Override
+                public int compare(HashMap.Entry<K, V> e1, HashMap.Entry<K,V> e2) {
+                    return e2.getValue().compareTo(e1.getValue());
+                }
+            })
+            .forEachOrdered( e -> result.put(e.getKey(), e.getValue()) );
+
+        return result;
+    }
 }
