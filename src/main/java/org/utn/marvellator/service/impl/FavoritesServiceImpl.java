@@ -8,6 +8,8 @@ import org.utn.marvellator.model.User;
 import org.utn.marvellator.repository.UserRepository;
 import org.utn.marvellator.service.FavoritesService;
 import org.utn.marvellator.service.UserService;
+
+import java.util.HashMap;
 import java.util.List;
 import static java.util.Objects.isNull;
 
@@ -36,6 +38,13 @@ public class FavoritesServiceImpl implements FavoritesService {
         user.addFavorite(character);
         userRepository.save(user);
         return character;
+    }
+
+    @Override
+    public HashMap<MarvelCharacter, String> favoritesWithStatus(List<MarvelCharacter> characters, User user){
+        HashMap<MarvelCharacter, String> charactersWithStatus = new HashMap<>();
+        characters.forEach(character->charactersWithStatus.put(character, user.statusOfCharacter(character)));
+        return charactersWithStatus;
     }
 
     @Override
