@@ -7,8 +7,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.utn.marvellator.model.SignupForm;
 import org.utn.marvellator.model.User;
+import org.utn.marvellator.service.GroupService;
 import org.utn.marvellator.service.UserService;
-
 import javax.validation.Valid;
 
 @Controller
@@ -16,6 +16,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private GroupService groupService;
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public User userHome(@RequestParam(value = "name", defaultValue = "A default name :)") String name) {
@@ -29,8 +32,14 @@ public class UserController {
 
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public User users(@RequestParam(value = "id", defaultValue = "A cute static id ") String name) {
-        return new User("This is a default id, we are making a static response :) ", name, "pass");
+    public String userPage(@PathVariable("id") String name, Model model) {
+        User user = userService.getUserByUserName(name);
+        if(user != null){
+            model.addAttribute("user",user);
+            model.addAttribute("nGroupsCreated",groupService.getGroupsByCreator(user).size());
+            model.addAttribute("nFavorites",user.getFavorites().size());
+        }
+        return "user";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
