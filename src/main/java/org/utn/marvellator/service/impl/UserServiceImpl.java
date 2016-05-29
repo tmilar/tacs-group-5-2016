@@ -11,6 +11,7 @@ import org.utn.marvellator.model.UserSession;
 import org.utn.marvellator.repository.UserRepository;
 import org.utn.marvellator.service.UserService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +67,8 @@ public class UserServiceImpl implements UserService {
         Session.getInstance().setCurrentSession(user);
         loggedUser.setUser(user);
 
+        user.setLastLogin(new Date());
+        userRepository.save(user);
     }
     public void logoutUser(){
         loggedUser.clean();

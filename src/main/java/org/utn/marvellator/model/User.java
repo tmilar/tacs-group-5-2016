@@ -6,10 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Document(collection = "user")
 public class User {
@@ -30,6 +27,8 @@ public class User {
 	private Role role;
 
 	private List<MarvelCharacter> favorites = new ArrayList<>();
+
+	private Date lastLogin;
 
 	public User() {
 	}
@@ -136,5 +135,13 @@ public class User {
 
 	public String statusOfCharacter(MarvelCharacter character){
 		return hasFavorite(character)? "Favorited" : "Not favorited";
+	}
+
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 }
