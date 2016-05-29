@@ -38,6 +38,13 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Override
+    public void deleteUser(User user) {
+        user = userRepository.findFirstByUserName(user.getUserName());
+        String id = user.getId();
+        userRepository.delete(id);
+    }
+
     private boolean checkExistingUsername(User user) {
         User existingUser = userRepository.findFirstByUserName(user.getUserName());
 
@@ -50,6 +57,12 @@ public class UserServiceImpl implements UserService {
      * @param user user that wants to log in
      */
     public void loginUser(User user) {
+        User existingUser = userRepository.findFirstByUserName(user.getUserName());
+        if (!existingUser.getPassword().equals(user.getPassword())){
+            throw new UserDoesNotExistException(user.getUserName());
+        }
+
+        /*Logged user is set in this singleton until spring security is totally configured*/
         Session.getInstance().setCurrentSession(user);
         loggedUser.setUser(user);
 

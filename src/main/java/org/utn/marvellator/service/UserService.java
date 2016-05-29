@@ -11,6 +11,8 @@ public interface UserService {
 
     void registerUser(User user);
 
+    void deleteUser(User user);
+
     void loginUser(User user);
 
     void logoutUser();

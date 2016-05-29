@@ -1,6 +1,8 @@
 package org.utn.marvellator.repository;
 
+import org.apache.coyote.http11.upgrade.NioServletOutputStream;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,14 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.utn.marvellator.ApplicationTest;
+import org.utn.marvellator.model.CharacterAlreadyFavoritedException;
+import org.utn.marvellator.model.MarvelCharacter;
 import org.utn.marvellator.model.User;
+import org.utn.marvellator.service.CharacterService;
+import org.utn.marvellator.service.FavoritesService;
+
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import static org.junit.Assert.*;
 
@@ -18,6 +27,12 @@ public class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    CharacterService characterService;
+
+    @Autowired
+    FavoritesService favoritesService;
 
     @After
     public void clean() {
@@ -48,29 +63,30 @@ public class UserRepositoryTest {
         userRepository.save(new User(testUsername));
     }
 
-
     @Test
-    public void shouldAssignAndPersistFavorite(){
+    public void shouldAssignAndPersistFavorite() throws CharacterAlreadyFavoritedException, IOException, NoSuchAlgorithmException{
         String testUsername = "testUserName2";
-        int testCharacterId = 1;
+        String testCharacterId = "1017100";
         User testUser = new User(testUsername);
-        testUser.addFavorite(testCharacterId);
+        MarvelCharacter character = characterService.getCharacterById(testCharacterId);
+        testUser.addFavorite(character);
         userRepository.save(testUser);
 
         assertEquals(1, userRepository.findFirstByUserName(testUsername).getFavorites().size());
-        assertTrue(userRepository.findFirstByUserName(testUsername).getFavorites().contains(testCharacterId));
+        assertTrue(userRepository.findFirstByUserName(testUsername).getFavorites().contains(character));
     }
 
     @Test
-    public void shouldRemoveAndNoLongerPersistFavorite(){
+    public void shouldRemoveAndNoLongerPersistFavorite() throws CharacterAlreadyFavoritedException, IOException, NoSuchAlgorithmException{
         String testUsername = "testUserName3";
-        int testCharacterId = 1;
+        String testCharacterId = "1017100";
         User testUser = new User(testUsername);
-        testUser.addFavorite(testCharacterId);
-        testUser.removeFavorite(testCharacterId);
+        MarvelCharacter character = characterService.getCharacterById(testCharacterId);
+        testUser.addFavorite(character);
+        testUser.removeFavorite(character);
         userRepository.save(testUser);
 
         assertEquals(0, userRepository.findFirstByUserName(testUsername).getFavorites().size());
-        assertFalse(userRepository.findFirstByUserName(testUsername).getFavorites().contains(testCharacterId));
+        assertFalse(userRepository.findFirstByUserName(testUsername).getFavorites().contains(character));
     }
 }

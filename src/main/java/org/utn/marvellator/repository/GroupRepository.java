@@ -11,4 +11,5 @@ public interface GroupRepository extends MongoRepository<Group, String>{
 
     Group findFirstByNameAndCreator(String groupName, String userName);
     List<Group> findByCreator(String userName);
+    Group findFirstById(String id);
 }

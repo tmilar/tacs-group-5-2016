@@ -40,6 +40,11 @@ public class MarvelCharacter {
     public MarvelCharacter(){
     }
 
+    public MarvelCharacter(String name, String marvelId){
+        this.marvelId = marvelId;
+        this.name = name;
+    }
+
     public MarvelCharacter(String name){
         this.name = name;
     }

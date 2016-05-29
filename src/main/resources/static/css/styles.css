@@ -4,10 +4,45 @@
 
 }
 
-.flex-aligned-items.horiz {
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-aligned-items.horiz,
+.flex-row{
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+}
+.flex-aligned-items.center {
+    justify-content: center;
+}
+
+.yellow-warning{
+    color: #f0ad4e;
+    border-color: navajowhite;
+}
+
+
+.padding-bottom{
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+
+.flex-container.nav-session{
+    padding: 0;
+    justify-content: space-around;
+    align-items: center;
+}
+.centered-nav-text{
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .font-small {
@@ -15,7 +50,7 @@
 }
 
 .marvellator-background {
-    background: url("WDF_586809.jpg");
+    background: url("http://i1186.photobucket.com/albums/z363/bpetracca/WDF_586809_zpsz5gavegq.jpg");
     background-size: cover;
 }
 
@@ -39,13 +74,18 @@
     padding: 10%;
 }
 
-.panel-default.transparent {
+.panel-default.transparent,
+.transparent-black{
     background-color: rgba(0, 0, 0, 0.5);
 }
 
 .jumbotron.white-text,
 .white-text {
     color: whitesmoke;
+}
+
+.session-nav{
+    width: 25%;
 }
 
 .text-small {
@@ -73,6 +113,6 @@
 
 .body-margins {
     padding: 7%;
-    background-image: url('marvel_comics_hd-wallpaper-234492.jpg');
+    background-image: url("http://i1186.photobucket.com/albums/z363/bpetracca/marvel_comics_hd-wallpaper-234492_zpself5zfah.jpg");
     background-size: cover;
 }

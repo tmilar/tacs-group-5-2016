@@ -2,6 +2,7 @@ package org.utn.marvellator.service.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.security.*;
 import java.net.URLEncoder;
 import java.net.URLConnection;
@@ -107,6 +108,33 @@ public class CharacterServiceImpl implements CharacterService {
     public MarvelCharacter getCharacterById(Integer characterId) {
         // TODO get a marvel character by id
         throw new NotImplementedException();
+    }
+
+    @Override
+    public MarvelCharacter getCharacterById(String characterId) throws IOException, NoSuchAlgorithmException {
+        String timestamp = String.valueOf(new java.util.Date().getTime());
+        String paramToDigest = timestamp + privateKey + publicKey;
+
+        byte[] bytesOfMessage = paramToDigest.getBytes(charset);
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] theDigest = md.digest(bytesOfMessage);
+        char[] encoded = Hex.encodeHex(theDigest);
+        String decoded = new String(encoded);
+
+        String queryString = String.format("ts=%s&apikey=%s&hash=%s",
+                URLEncoder.encode(timestamp, charset),
+                URLEncoder.encode(publicKey, charset),
+                URLEncoder.encode(decoded, charset));
+
+        URLConnection connection = new URL(url + "/" + characterId + "?" + queryString).openConnection();
+        connection.setRequestProperty("Accept-Charset", charset);
+
+        InputStream response = connection.getInputStream();
+        Scanner scanner = new Scanner(response);
+        String responseBody = scanner.useDelimiter("\\A").next();
+        JSONObject jsonResponse = new JSONObject(responseBody).getJSONObject("data").getJSONArray("results").getJSONObject(0);
+        return MarvelCharacter.fromJson(jsonResponse);
     }
 
     @Override

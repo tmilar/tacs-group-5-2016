@@ -1,13 +1,37 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:include="unknownuserform :: home">
 <head>
-    <title>LOGIN</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
-<body>
-<h1>User!</h1>
-<form action="#" th:action="@{/login}" th:object="${id}" method="post">
-    <p><input type="submit" value="Login" /> <input type="reset" value="Reset" /></p>
-</form>
+<body class="marvellator-background">
+<div th:fragment="unknown-user-form">
+    <div class="panel panel-default transparent">
+        <div class="panel-body">
+            <form method="post" th:action="@{/login}" th:object="${user}" th:fragment="user">
+                <fieldset class="flex-aligned-items form-horizontal">
+                    <div class="form-group margin"> <!--th:classappend="${#fields.hasErrors('userName')}? 'has-error'"-->
+                        <input name="userName" id="userName" type="text"
+                               th:field="*{userName}" class="form-control" placeholder="Username"/>
+                    </div>
+                    <div class="form-group margin">
+                        <input name="password" id="password" type="password"
+                               th:field="*{password}" class="form-control" placeholder="Password"/>
+                    </div>
+                    <button type="submit" class="btn btn-large btn-warning">Log in</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-default transparent">
+        <div class="panel-body">
+            <div class="item-form-margin">
+                <h6>Don't you have an account?
+                    <a th:href="@{/signup}" class="font-small light-link">Sign up</a>
+                </h6>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
