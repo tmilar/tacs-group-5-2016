@@ -1,10 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:include="fragments/layout :: corelayout">
 <head>
-    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Characters</title>
 </head>
 <body>
-
+<div th:fragment="pagecontent">
+    <div class="container transparent-black flex-aligned-items horiz  padding-bottom">
+        <label for="search-character" class="yellow-warning bold">Search for a character</label>
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input id="search-character" type="text" class="form-control" placeholder="Search for..."/>
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </button>
+      </span>
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+    </div>
+    <div class="panel panel-default">
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td>Marvel ID</td>
+            <td>Name</td>
+            <td>Status</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${characters.empty}">
+            <td colspan="4">No characters found</td>
+        </tr>
+        <tr th:each="character : ${characters}">
+            <td th:text="${character.key.marvelId}"></td>
+            <td th:text="${character.key.name}"></td>
+            <td th:switch="${character.value}">
+            <div th:case="'Not favorited'">
+                <form role="form">
+                    <button th:id="'addFavorite-'+${character.key.marvelId}" type="submit" class="btn btn-default addFavorite">Add to favorites</button>
+                </form>
+            </div>
+            <div th:case="*">
+                <form role="form">
+                    <button th:id="'removeFavorite-'+${character.key.marvelId}" type="submit" class="btn btn-default removeFavorite">Remove from favorites</button>
+                </form>
+            </div>
+                </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="flex-aligned-items horiz center">
+    <span th:text="${page}">Page: </span>
+    <form id="previousPage" method="get" th:with="previousPage=${page -1}" th:action="@{/characters/{page}(page=${previousPage})}" role="form">
+        <button type="submit" class="btn btn-default">Previous</button>
+    </form>
+    <form id="nextPage" method="get" th:with="nextPage=${page +1}" th:action="@{/characters/{page}(page=${nextPage})}" role="form">
+        <button type="submit" class="btn btn-default">Next</button>
+    </form>
+    </div>
+</div>
+    </div>
 </body>
 </html>
