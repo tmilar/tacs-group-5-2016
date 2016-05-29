@@ -129,4 +129,8 @@ public class User {
 			throw new CharacterAlreadyFavoritedException(character);
 		}
 	}
+
+	public String statusOfCharacter(MarvelCharacter character){
+		return favorites.contains(character)? "Favorited" : "Not favorited";
+	}
 }
