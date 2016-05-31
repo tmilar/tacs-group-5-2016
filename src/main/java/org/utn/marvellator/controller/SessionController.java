@@ -19,8 +19,7 @@ public class SessionController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@Valid @ModelAttribute User user){
-
-        return "index";
+        return "characters";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
