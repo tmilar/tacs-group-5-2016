@@ -5,10 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.utn.marvellator.ContentItem.UserContentitem;
 import org.utn.marvellator.model.SignupForm;
 import org.utn.marvellator.model.User;
 import org.utn.marvellator.service.GroupService;
 import org.utn.marvellator.service.UserService;
+import org.utn.marvellator.service.impl.CurrentUserDetailsService;
+
 import javax.validation.Valid;
 
 @Controller
@@ -19,6 +22,9 @@ public class UserController {
 
     @Autowired
     private GroupService groupService;
+
+	@Autowired
+	CurrentUserDetailsService currentUserDetailsService;
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public User userHome(@RequestParam(value = "name", defaultValue = "A default name :)") String name) {
@@ -32,14 +38,14 @@ public class UserController {
 
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public String userPage(@PathVariable("id") String name, Model model) {
-        User user = userService.getUserByUserName(name);
-        if(user != null){
+    public String userPage(@PathVariable("id") String id, Model model) {
+			User current = userService.getUserById(id);
+        UserContentitem user = userService.getUserContentItemById(id);
+			if(user != null){
             model.addAttribute("user",user);
-            model.addAttribute("nGroupsCreated",groupService.getGroupsByCreator(user).size());
-            model.addAttribute("nFavorites",user.getFavorites().size());
+            model.addAttribute("groups",groupService.getGroupsByCreator(current));
         }
-        return "user";
+        return "userDetails";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -47,6 +53,12 @@ public class UserController {
         model.addAttribute(new SignupForm());
         return "signup";
     }
+
+		@RequestMapping(value = "/users", method = RequestMethod.GET)
+		public String getUsers(Model model) {
+			model.addAttribute("users", userService.getAllUsersContentItems());
+			return "users";
+		}
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signup(@Valid @ModelAttribute SignupForm signupForm, Errors errors) {

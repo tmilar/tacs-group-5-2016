@@ -1,11 +1,23 @@
 $(document).ready(function(){
 
-    $('.addFavorite').on('click', function(){
-        manageFavorite("POST", $(this));
+    $('.addFavorite').on('click', function(ev){
+		var id = trimByHyphen($(this).prop('id'));
+		var name = $(ev.target).closest("tr").find(".character-name").html();
+		var params = JSON.stringify({
+			marvelId: id,
+			name: name
+		});
+        manageFavorite("POST", params);
     });
 
-    $('.removeFavorite').on('click', function(){
-        manageFavorite("DELETE", $(this));
+    $('.removeFavorite').on('click', function(ev){
+		var id = trimByHyphen($(this).prop('id'));
+		var name = $(ev.target).closest("tr").find(".character-name").html();
+		var params = JSON.stringify({
+			marvelId: id,
+			name: name
+		});
+        manageFavorite("DELETE", params);
     });
 
     $('#createGroup').on('click', function(){
@@ -34,15 +46,11 @@ function manageGroup(type, params){
 
 }
 
-function manageFavorite(type, self){
-    var id = trimByHyphen(self.prop('id'));
-    var params = JSON.stringify({
-        marvelId : id
-    });
+function manageFavorite(type, params){
 	var callback = function() {
 		location.reload();
 	}
-    sendByAjax(type, params, "/api/users/favorites", callback);
+    sendByAjax(type, params, "/api/favorites", callback);
 }
 
 function trimByHyphen(val){
