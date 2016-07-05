@@ -22,7 +22,7 @@
         </tr>
         <tr th:unless="${characters.empty}" th:each="character : ${characters}">
             <td th:text="${character.key.marvelId}"></td>
-            <td th:text="${character.key.name}"></td>
+            <td class="character-name" th:text="${character.key.name}"></td>
             <td>
                 <div th:if="${character.value}">
                     <form role="form">

@@ -108,7 +108,10 @@ public class User {
 	}
 
 	public void removeFavorite(MarvelCharacter character) {
-		favorites.remove(character);
+		for (MarvelCharacter ch : favorites){
+			if (ch.getMarvelId().equals(character.getMarvelId()) && ch.getName().equals(character.getName()))
+				favorites.remove(character);
+		}
 	}
 
 	public Role getRole() {

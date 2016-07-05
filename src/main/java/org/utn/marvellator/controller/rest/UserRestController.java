@@ -26,19 +26,18 @@ public class UserRestController {
         return favoritesService.getFavorites(username);
     }
 
-    @RequestMapping(value = "/api/users/favorites", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/favorites", method = RequestMethod.POST)
     // @ResponseStatus(value = HttpStatus.OK)
     public void setAsFavorite(@RequestBody MarvelCharacterWrapper character) throws CharacterAlreadyFavoritedException, IOException {
         User user = currentUserDetailsService.getCurrentUser();
-        MarvelCharacter marvelCharacter =  characterService.getCharacterById(character.getMarvelId());
+        MarvelCharacter marvelCharacter =  new MarvelCharacter(character.getName(), character.getMarvelId());
         favoritesService.addFavorite(user.getUserName(), marvelCharacter);
     }
-
-    @RequestMapping(value = "/api/users/favorites", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/favorites", method = RequestMethod.DELETE)
     // @ResponseStatus(value = HttpStatus.OK)
     public void removeFavorite(@RequestBody MarvelCharacterWrapper character) throws IOException {
         User user = currentUserDetailsService.getCurrentUser();
-        MarvelCharacter marvelCharacter =  characterService.getCharacterById(character.getMarvelId());
+        MarvelCharacter marvelCharacter =  new MarvelCharacter(character.getName(), character.getMarvelId());
         favoritesService.removeFavorite(user.getUserName(), marvelCharacter);
     }
 
