@@ -27,4 +27,6 @@ public interface GroupService {
 		List<GroupCharacter> getAvailableCharactersForGroup(Group group, Integer page) throws IOException;
 
     List<MarvelCharacter> getIntersectionCharacters(Group g1, Group g2);
+
+		List<Group> getAllGroupsFromAllCharacters();
 }

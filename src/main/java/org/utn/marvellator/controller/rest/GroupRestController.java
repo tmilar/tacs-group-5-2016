@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.utn.marvellator.ContentItem.GroupCharacter;
 import org.utn.marvellator.model.*;
@@ -166,6 +167,7 @@ public class GroupRestController {
     // TODO:1 assign this only to ADMIN role
     // TODO:2 review actual API/endpoint for this... is OK this way or maybe pass the 2nd group as a path parameter?
     //    ie. /{idgroup1}?intersect={idgroup2} // maybe better?
+		@PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/{idGroup1}/intersection/{idGroup2}", method = RequestMethod.GET)
     public ResponseEntity<List<MarvelCharacter>> groupsIntersection(@PathVariable String idGroup1,
                                                                     @PathVariable String idGroup2) {

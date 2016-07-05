@@ -10,6 +10,7 @@ import org.utn.marvellator.model.User;
 import org.utn.marvellator.repository.GroupRepository;
 import org.utn.marvellator.service.CharacterService;
 import org.utn.marvellator.service.GroupService;
+import org.utn.marvellator.service.UserService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +25,10 @@ public class GroupServiceImpl implements GroupService {
 
 		@Autowired
 		private CharacterService characterService;
+
+		@Autowired
+		private UserService userService;
+
 
     @Override
     public Group createGroup(String newGroupName, String creatorName) {
@@ -90,4 +95,14 @@ public class GroupServiceImpl implements GroupService {
 			}
 			return groupCharacters;
 		}
+
+	@Override
+	public List<Group> getAllGroupsFromAllCharacters() {
+		List<User> users = userService.getAllUsers();
+		List<Group> groups = new ArrayList<>();
+		for (User u : users){
+			groups.addAll(groupRepository.findByCreator(u.getUserName()));
+		}
+		return groups;
+	}
 }

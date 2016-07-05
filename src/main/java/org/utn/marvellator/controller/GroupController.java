@@ -1,6 +1,7 @@
 package org.utn.marvellator.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +39,13 @@ public class GroupController {
         model.addAttribute("groups", groupService.getGroupsByCreator(user));
         return "groups";
     }
+
+		@PreAuthorize("hasAuthority('ADMIN')")
+		@RequestMapping(value = "/groupIntersection", method = RequestMethod.GET)
+		public String groupIntersection(Model model) {
+			model.addAttribute("groups", groupService.getAllGroupsFromAllCharacters());
+			return "groupIntersection";
+		}
 
 
 }
