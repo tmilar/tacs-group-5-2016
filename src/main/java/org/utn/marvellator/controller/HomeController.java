@@ -26,7 +26,7 @@ public class HomeController implements ErrorController {
     @RequestMapping(value = ERROR_PATH )
     public String onErrorRedirect() {
         //TODO print an error msg in index?
-        return "redirect:/index";
+        return "redirect:/home";
     }
 
 }
