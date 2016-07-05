@@ -16,7 +16,6 @@ import org.utn.marvellator.service.UserService;
 import org.utn.marvellator.service.impl.CurrentUserDetailsService;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -39,16 +38,16 @@ public class CharacterController {
     UserSession loggedUser;
 
     @RequestMapping(value = "/characters", method = RequestMethod.GET)
-    public String characters(Model model) throws IOException, NoSuchAlgorithmException{
+    public String characters(Model model) throws IOException{
            return charactersPage(0, model);
     }
 
     @RequestMapping(value = "/characters/{page}", method = RequestMethod.GET)
-    public String characters(@PathVariable(value = "page") Integer page, Model model) throws IOException, NoSuchAlgorithmException {
+    public String characters(@PathVariable(value = "page") Integer page, Model model) throws IOException {
        return charactersPage(page, model);
     }
 
-    private String charactersPage(Integer page, Model model) throws IOException, NoSuchAlgorithmException{
+    private String charactersPage(Integer page, Model model) throws IOException{
         int offset = 10*page;
         int limit = 10;
         List<MarvelCharacter> characters = characterService.getCharactersPage(offset, limit);

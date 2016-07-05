@@ -17,7 +17,6 @@ import org.utn.marvellator.service.CharacterService;
 import org.utn.marvellator.service.FavoritesService;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 
 import static org.junit.Assert.*;
 
@@ -64,7 +63,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void shouldAssignAndPersistFavorite() throws CharacterAlreadyFavoritedException, IOException, NoSuchAlgorithmException{
+    public void shouldAssignAndPersistFavorite() throws CharacterAlreadyFavoritedException, IOException {
         String testUsername = "testUserName2";
         String testCharacterId = "1017100";
         User testUser = new User(testUsername);
@@ -77,7 +76,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void shouldRemoveAndNoLongerPersistFavorite() throws CharacterAlreadyFavoritedException, IOException, NoSuchAlgorithmException{
+    public void shouldRemoveAndNoLongerPersistFavorite() throws CharacterAlreadyFavoritedException, IOException {
         String testUsername = "testUserName3";
         String testCharacterId = "1017100";
         User testUser = new User(testUsername);

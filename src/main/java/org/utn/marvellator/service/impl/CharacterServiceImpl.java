@@ -36,7 +36,7 @@ public class CharacterServiceImpl implements CharacterService {
 
 
 		@Override
-		public List<MarvelCharacter> charactersPage(Integer page) throws IOException, NoSuchAlgorithmException{
+		public List<MarvelCharacter> charactersPage(Integer page) throws IOException {
 			int offset = 10*page;
 			int limit = 10;
 			List<MarvelCharacter> characters = this.getCharactersPage(offset, limit);
@@ -44,7 +44,7 @@ public class CharacterServiceImpl implements CharacterService {
 		}
 
     @Override
-    public List<MarvelCharacter> getCharactersPage(int offset, int limit) throws NoSuchAlgorithmException, IOException {
+    public List<MarvelCharacter> getCharactersPage(int offset, int limit) throws  IOException {
         JSONObject responseJson = callMarvelCharactersApi(offset, limit);
 
         List<MarvelCharacter> characters = parseJsonCharactersToMarvelCharactersList(responseJson);
@@ -57,9 +57,8 @@ public class CharacterServiceImpl implements CharacterService {
      * @param jsonObj
      * @return collection of marvel characters
      * @throws IOException
-     * @throws NoSuchAlgorithmException
      */
-    protected List<MarvelCharacter> parseJsonCharactersToMarvelCharactersList(JSONObject jsonObj) throws IOException, NoSuchAlgorithmException {
+    protected List<MarvelCharacter> parseJsonCharactersToMarvelCharactersList(JSONObject jsonObj) throws IOException {
 
         JSONArray characterJsonArray = jsonObj.getJSONArray("results");
         List<MarvelCharacter> characters = new ArrayList<>();
@@ -79,16 +78,20 @@ public class CharacterServiceImpl implements CharacterService {
      * @param offset - the initial position of the marvel characters list
      * @param limit - quantity of characters to get after offset (max 100)
      * @return
-     * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-    private JSONObject callMarvelCharactersApi(int offset, int limit) throws NoSuchAlgorithmException, IOException {
+    private JSONObject callMarvelCharactersApi(int offset, int limit) throws  IOException {
         String timestamp = String.valueOf(new java.util.Date().getTime());
         String paramToDigets = timestamp + privateKey + publicKey;
 
         byte[] bytesOfMessage = paramToDigets.getBytes(charset);
 
-        MessageDigest md = MessageDigest.getInstance("MD5");
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         byte[] thedigest = md.digest(bytesOfMessage);
         char[] encoded = Hex.encodeHex(thedigest);
         String decoded = new String(encoded);
@@ -119,7 +122,7 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public MarvelCharacter getCharacterById(String characterId) throws IOException, NoSuchAlgorithmException {
+    public MarvelCharacter getCharacterById(String characterId) throws IOException {
         String timestamp = String.valueOf(new java.util.Date().getTime());
         String paramToDigest = timestamp + privateKey + publicKey;
 
@@ -146,7 +149,7 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public Integer getTotalCharacters() throws IOException, NoSuchAlgorithmException {
+    public Integer getTotalCharacters() throws IOException {
         JSONObject responseJson = callMarvelCharactersApi(0, 1);
 
         Integer total = responseJson.getInt("total");

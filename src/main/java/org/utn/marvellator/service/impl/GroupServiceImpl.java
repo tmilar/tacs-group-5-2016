@@ -12,11 +12,8 @@ import org.utn.marvellator.service.CharacterService;
 import org.utn.marvellator.service.GroupService;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,7 +74,7 @@ public class GroupServiceImpl implements GroupService {
 		}
 
 		@Override
-		public List<GroupCharacter> getAvailableCharactersForGroup(Group group, Integer page) throws IOException, NoSuchAlgorithmException {
+		public List<GroupCharacter> getAvailableCharactersForGroup(Group group, Integer page) throws IOException {
 			List<MarvelCharacter> characters = characterService.charactersPage(page);
 			List<GroupCharacter> groupCharacters = new ArrayList<>();
 			for (MarvelCharacter character : characters){
