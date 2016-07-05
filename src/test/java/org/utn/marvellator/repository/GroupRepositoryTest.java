@@ -76,7 +76,7 @@ public class GroupRepositoryTest {
     @Test
     public void shouldDeleteAndNoLongerPersistCharacterInAGroup() throws CharacterAlreadyInGroupException {
         String testName = "testGroup";
-        MarvelCharacter testCharacter = new MarvelCharacter();
+        MarvelCharacter testCharacter = new MarvelCharacter("caca", "11111");
 
         Group testGroup = new Group(testName);
         testGroup.addCharacter(testCharacter);

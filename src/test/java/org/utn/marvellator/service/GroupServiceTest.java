@@ -33,7 +33,7 @@ public class GroupServiceTest {
     // Fixture data
     private final String testCreatorName = "testUser";
     private final String newGroupName = "test group 1";
-    private final MarvelCharacter testCharacter = new MarvelCharacter("superTestMan");
+    private final MarvelCharacter testCharacter = new MarvelCharacter("superTestMan", "46273246");
 
     @After
     public void clean(){
