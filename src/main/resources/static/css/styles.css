@@ -113,6 +113,19 @@
 
 .body-margins {
     padding: 7%;
-    background-image: url("http://i1186.photobucket.com/albums/z363/bpetracca/marvel_comics_hd-wallpaper-234492_zpself5zfah.jpg");
     background-size: cover;
+}
+
+.character-name {
+	width: 22%;
+}
+
+.currentCharactersTableBody {
+	background-color: white;
+	color: black;
+}
+
+.currentCharactersTableHead {
+	background-color: white;
+	color: black;
 }

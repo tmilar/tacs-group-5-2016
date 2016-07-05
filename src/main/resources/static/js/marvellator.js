@@ -26,7 +26,12 @@ $(document).ready(function(){
 });
 
 function manageGroup(type, params){
-    sendByAjax(type,params,"/api/groups/");
+	var callback = function() {
+		location.reload();
+	}
+    sendByAjax(type,params,"/api/groups/", callback);
+
+
 }
 
 function manageFavorite(type, self){
@@ -34,15 +39,17 @@ function manageFavorite(type, self){
     var params = JSON.stringify({
         marvelId : id
     });
-    sendByAjax(type, params, "/api/users/favorites");
-
+	var callback = function() {
+		location.reload();
+	}
+    sendByAjax(type, params, "/api/users/favorites", callback);
 }
 
 function trimByHyphen(val){
     return val.substr(val.indexOf("-") + 1);
 }
 
-function sendByAjax(type, params, url){
+function sendByAjax(type, params, url, callbackFunction){
     $.ajax({
         type: type,
         dataType: 'json',
@@ -51,10 +58,12 @@ function sendByAjax(type, params, url){
         url: url,
         success: function(response){
             console.log(response);
+			if (callbackFunction)
+				callbackFunction(response);
         },
         error: function(e) {
             console.log(e);
         }
     });
-    location.reload();
+
 }

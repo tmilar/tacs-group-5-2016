@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.utn.marvellator.model.Group;
+import org.utn.marvellator.model.MarvelCharacter;
 import org.utn.marvellator.model.User;
 import org.utn.marvellator.service.GroupService;
 import org.utn.marvellator.service.impl.CurrentUserDetailsService;
+
+import java.util.List;
 
 @Controller
 public class GroupController {

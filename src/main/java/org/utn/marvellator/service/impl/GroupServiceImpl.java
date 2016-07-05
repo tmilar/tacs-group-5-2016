@@ -2,13 +2,17 @@ package org.utn.marvellator.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.utn.marvellator.ContentItem.GroupCharacter;
 import org.utn.marvellator.model.CharacterAlreadyInGroupException;
 import org.utn.marvellator.model.Group;
 import org.utn.marvellator.model.MarvelCharacter;
 import org.utn.marvellator.model.User;
 import org.utn.marvellator.repository.GroupRepository;
+import org.utn.marvellator.service.CharacterService;
 import org.utn.marvellator.service.GroupService;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +24,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Autowired
     private GroupRepository groupRepository;
+
+		@Autowired
+		private CharacterService characterService;
 
     @Override
     public Group createGroup(String newGroupName, String creatorName) {
@@ -54,10 +61,10 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public boolean removeCharacterFromGroup(MarvelCharacter character, Group group) {
+    public Group removeCharacterFromGroup(MarvelCharacter character, Group group) {
         boolean removed = group.removeCharacter(character);
         groupRepository.save(group);
-        return removed;
+        return group;
     }
 
     @Override
@@ -67,7 +74,23 @@ public class GroupServiceImpl implements GroupService {
         List<MarvelCharacter> g2Characters = g2.getCharacters();
 
         return g1Characters.stream().filter(g2Characters::contains).collect(Collectors.toList());
+		}
 
-
-    }
+		@Override
+		public List<GroupCharacter> getAvailableCharactersForGroup(Group group, Integer page) throws IOException, NoSuchAlgorithmException {
+			List<MarvelCharacter> characters = characterService.charactersPage(page);
+			List<GroupCharacter> groupCharacters = new ArrayList<>();
+			for (MarvelCharacter character : characters){
+				boolean doesntExist = true;
+				for (MarvelCharacter groupCharacter : group.getCharacters()){
+					if (character.getMarvelId().equals(groupCharacter.getMarvelId()) && character.getName().equals(groupCharacter.getName())) {
+						doesntExist = false;
+						break;
+					}
+				}
+				if (doesntExist)
+					groupCharacters.add(new GroupCharacter(character.getName(), character.getMarvelId(), false));
+			}
+			return groupCharacters;
+		}
 }

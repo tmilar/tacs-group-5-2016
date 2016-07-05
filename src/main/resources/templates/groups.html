@@ -37,7 +37,7 @@
             </tr>
         <tr th:unless="${groups.empty}" th:each="group, stat : ${groups}">
             <td th:text="${stat.count}">1 ...</td>
-            <td><a href="#" th:text="${group.name}">Group name ...</a></td>
+            <td><a th:href="@{/groups/__${group.id}__}" th:text="${group.name}">Group name ...</a></td>
             <td th:text="${#lists.size(group.characters) + ' character/s'}">3 character/s in list ...</td>
             <td>
             <form role="form">

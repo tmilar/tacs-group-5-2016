@@ -5,12 +5,14 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.utn.marvellator.ContentItem.GroupCharacter;
 import org.utn.marvellator.model.*;
 import org.utn.marvellator.repository.GroupRepository;
 import org.utn.marvellator.service.GroupService;
 import org.utn.marvellator.service.impl.CurrentUserDetailsService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -51,14 +53,84 @@ public class GroupRestController {
         groupService.createGroup(group.getName(), user.getUserName());
     }
 
-    @RequestMapping(value = "/{userName}/{groupName}", method = RequestMethod.PUT)
-    public HttpEntity<Group> addCharacter(@PathVariable String userName,
-                                                   @PathVariable String groupName,
-                                                   @RequestBody MarvelCharacter character) throws CharacterAlreadyInGroupException {
-        Group group = groupRepository.findFirstByNameAndCreator(groupName, userName);
+		@RequestMapping(value = "/{userName}/{groupName}", method = RequestMethod.PUT)
+		public HttpEntity<Group> addCharacter(@PathVariable String userName,
+																					@PathVariable String groupName,
+																					@RequestBody MarvelCharacter character) throws CharacterAlreadyInGroupException {
+			Group group = groupRepository.findFirstByNameAndCreator(groupName, userName);
 
-        if(group != null){
-            MarvelCharacter newCharacter = new MarvelCharacter(character.getName());
+			if(group != null){
+				MarvelCharacter newCharacter = new MarvelCharacter(character.getName());
+				Group updated = groupService.addCharacterToGroup(newCharacter, group);
+				ResponseEntity<Group> response = new ResponseEntity<Group>( updated, HttpStatus.CREATED ) ;
+
+				return response;
+			}
+
+			return new ResponseEntity<Group>( HttpStatus.NOT_FOUND );
+		}
+
+		@RequestMapping(value = "/{groupId}/characters", method = RequestMethod.GET)
+		public List<MarvelCharacter> getCharacter(@PathVariable String groupId) throws CharacterAlreadyInGroupException {
+			String username = currentUserDetailsService.getCurrentUsername();
+			Group group = groupRepository.findFirstById(groupId);
+
+			if (group != null){
+				//TODO Add friendly message for user in case of system errors
+				try {
+					return group.getCharacters();
+				} catch (Exception e){
+					//Something
+				}
+			}
+
+			return new ArrayList<>();
+		}
+
+		@RequestMapping(value = "/{groupId}/availableCharacters", method = RequestMethod.GET)
+		public List<GroupCharacter> getAvailableCharacters(@PathVariable String groupId) throws CharacterAlreadyInGroupException {
+			String username = currentUserDetailsService.getCurrentUsername();
+			Group group = groupRepository.findFirstById(groupId);
+
+			if (group != null){
+				//TODO Add friendly message for user in case of system errors
+				try {
+					List<GroupCharacter> charactersForGroup = groupService.getAvailableCharactersForGroup(group, 0);
+					return charactersForGroup;
+				} catch (Exception e){
+					//Something
+				}
+			}
+
+			return new ArrayList<>();
+		}
+
+		@RequestMapping(value = "/{groupId}/availableCharacters/{page}", method = RequestMethod.GET)
+		public List<GroupCharacter> getCharacterPage(@PathVariable String groupId, @PathVariable(value = "page") Integer page) throws CharacterAlreadyInGroupException {
+			String username = currentUserDetailsService.getCurrentUsername();
+			Group group = groupRepository.findFirstById(groupId);
+
+			if (group != null){
+				//TODO Add friendly message for user in case of system errors
+				try {
+					List<GroupCharacter> charactersForGroup = groupService.getAvailableCharactersForGroup(group, page);
+					return charactersForGroup;
+				} catch (Exception e){
+					//Something
+				}
+			}
+
+			return new ArrayList<>();
+		}
+
+    @RequestMapping(value = "/{groupId}", method = RequestMethod.PUT)
+    public HttpEntity<Group> addCharacter(@PathVariable String groupId,
+                                                   @RequestBody MarvelCharacter character) throws CharacterAlreadyInGroupException {
+				String username = currentUserDetailsService.getCurrentUsername();
+        Group group = groupRepository.findFirstById(groupId);
+
+			if(group != null){
+            MarvelCharacter newCharacter = new MarvelCharacter(character.getName(), character.getMarvelId());
             Group updated = groupService.addCharacterToGroup(newCharacter, group);
             ResponseEntity<Group> response = new ResponseEntity<Group>( updated, HttpStatus.CREATED ) ;
 
@@ -67,6 +139,24 @@ public class GroupRestController {
 
         return new ResponseEntity<Group>( HttpStatus.NOT_FOUND );
     }
+
+		@RequestMapping(value = "/{groupId}", method = RequestMethod.DELETE)
+		public HttpEntity<Group> removeCharacter(@PathVariable String groupId,
+																					@RequestBody MarvelCharacter character) throws CharacterAlreadyInGroupException {
+			String username = currentUserDetailsService.getCurrentUsername();
+			Group group = groupRepository.findFirstById(groupId);
+
+			if (group != null){
+				MarvelCharacter newCharacter = new MarvelCharacter(character.getName(), character.getMarvelId());
+				Group updated = groupService.removeCharacterFromGroup(newCharacter, group);
+				ResponseEntity<Group> response = new ResponseEntity<Group>( updated, HttpStatus.CREATED ) ;
+
+				return response;
+			}
+
+
+			return new ResponseEntity<Group>( HttpStatus.NOT_FOUND );
+		}
 
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
     public void deleteGroup(@RequestBody GroupWrapper group) {

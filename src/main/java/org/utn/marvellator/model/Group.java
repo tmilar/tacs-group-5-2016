@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.*;
 
 @CompoundIndex(name="name_compound_index", def="{ 'group_name':1, 'creator_name':1 }", unique = true)
-@Document(collection = "group")
+@Document(collection = "grupo")
 public class Group {
 
 	@Id
@@ -72,7 +72,10 @@ public class Group {
 	}
 
 	public boolean removeCharacter(MarvelCharacter character){
-		return this.characters.remove(character);
+		MarvelCharacter removing = getCharacterById(character.getMarvelId());
+		if (removing != null)
+			return this.characters.remove(character);
+		return false;
 	}
 
 	public String getCreator() {
@@ -86,5 +89,13 @@ public class Group {
 	@Override
 	public String toString() {
 		return "Group '"+name+"', created by: '"+ creator + "', characters: [" + characters.toString() + "]";
+	}
+
+	public MarvelCharacter getCharacterById(String id) {
+		for (MarvelCharacter character : this.getCharacters()){
+			if (character.getMarvelId().equals(id))
+				return character;
+		}
+		return null;
 	}
 }

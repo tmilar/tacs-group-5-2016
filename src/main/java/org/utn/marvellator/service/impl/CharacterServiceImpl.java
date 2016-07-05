@@ -35,6 +35,14 @@ public class CharacterServiceImpl implements CharacterService {
     private String charset;  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
 
 
+		@Override
+		public List<MarvelCharacter> charactersPage(Integer page) throws IOException, NoSuchAlgorithmException{
+			int offset = 10*page;
+			int limit = 10;
+			List<MarvelCharacter> characters = this.getCharactersPage(offset, limit);
+			return characters;
+		}
+
     @Override
     public List<MarvelCharacter> getCharactersPage(int offset, int limit) throws NoSuchAlgorithmException, IOException {
         JSONObject responseJson = callMarvelCharactersApi(offset, limit);
