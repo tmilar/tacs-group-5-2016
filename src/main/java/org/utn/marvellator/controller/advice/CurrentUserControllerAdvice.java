@@ -12,9 +12,8 @@ import static java.util.Objects.isNull;
 @ControllerAdvice
 public class CurrentUserControllerAdvice {
 
-    @ModelAttribute
-    public void getCurrentUser(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("currentUser", auth.getPrincipal());
+    @ModelAttribute("currentUser")
+    public UserDetails getCurrentUser(Authentication authentication) {
+        return (isNull(authentication)) ? null : (UserDetails) authentication.getPrincipal();
     }
 }
