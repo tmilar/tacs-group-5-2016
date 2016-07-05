@@ -128,7 +128,13 @@ public class CharacterServiceImpl implements CharacterService {
 
         byte[] bytesOfMessage = paramToDigest.getBytes(charset);
 
-        MessageDigest md = MessageDigest.getInstance("MD5");
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
         byte[] theDigest = md.digest(bytesOfMessage);
         char[] encoded = Hex.encodeHex(theDigest);
         String decoded = new String(encoded);
