@@ -1,4 +1,4 @@
-package org.utn.marvellator.controller;
+package org.utn.marvellator.controller.advice;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
