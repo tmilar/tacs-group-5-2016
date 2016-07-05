@@ -34,8 +34,9 @@ public class CharactersService {
         try {
             md = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+
         byte[] thedigest = md.digest(bytesOfMessage);
         char[] encoded = Hex.encodeHex(thedigest);
         String decoded = new String(encoded);

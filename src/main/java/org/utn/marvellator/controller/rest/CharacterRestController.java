@@ -15,7 +15,6 @@ import sun.misc.IOUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @RestController
@@ -31,12 +30,12 @@ public class CharacterRestController {
     CurrentUserDetailsService currentUserDetailsService;
 
     @RequestMapping(value = "api/characters", method = RequestMethod.GET)
-    public List<MarvelCharacter> characters() throws IOException, NoSuchAlgorithmException{
+    public List<MarvelCharacter> characters() throws IOException {
 			return characterService.charactersPage(0);
     }
 
 		@RequestMapping(value = "api/characters/{page}", method = RequestMethod.GET)
-		public List<MarvelCharacter> characters(@PathVariable(value = "page") Integer page, Model model) throws IOException, NoSuchAlgorithmException {
+		public List<MarvelCharacter> characters(@PathVariable(value = "page") Integer page, Model model) throws IOException {
 			return characterService.charactersPage(page);
 		}
 

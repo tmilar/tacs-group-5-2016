@@ -1,22 +1,32 @@
 package org.utn.marvellator.controller;
 
-import org.hibernate.service.spi.InjectService;
+import org.springframework.boot.autoconfigure.web.ErrorController;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.stereotype.Controller;
 import org.utn.marvellator.model.User;
-import org.utn.marvellator.model.UserSession;
 
 
 @Controller
-public class HomeController {
+public class HomeController implements ErrorController {
+
+    private static final String ERROR_PATH = "/error";
+
+    @Override
+    public String getErrorPath() {
+        return ERROR_PATH;
+    }
 
     @RequestMapping(value = {"/", "/index", "/home"})
     public String home(Model model) {
         model.addAttribute(new User());
-        return "index";
+        return "/index";
     }
 
+    @RequestMapping(value = ERROR_PATH )
+    public String onErrorRedirect() {
+        //TODO print an error msg in index?
+        return "redirect:/index";
+    }
 
 }

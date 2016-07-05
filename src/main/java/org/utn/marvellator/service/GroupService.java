@@ -8,7 +8,6 @@ import org.utn.marvellator.model.User;
 import org.utn.marvellator.service.impl.CurrentUserIsNotTheCreatorException;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public interface GroupService {
@@ -25,7 +24,7 @@ public interface GroupService {
 
     Group getGroupById(User user, String id) throws CurrentUserIsNotTheCreatorException;
 
-		List<GroupCharacter> getAvailableCharactersForGroup(Group group, Integer page) throws IOException, NoSuchAlgorithmException;
+		List<GroupCharacter> getAvailableCharactersForGroup(Group group, Integer page) throws IOException;
 
     List<MarvelCharacter> getIntersectionCharacters(Group g1, Group g2);
 }
