@@ -127,9 +127,9 @@ public class GroupServiceTest {
         Group groupWithCharacter = createTestGroupWithTestCharacter();
         assertTrue(_characterPersistedInGroup(testCharacter, groupWithCharacter));
 
-        boolean removed = groupService.removeCharacterFromGroup(testCharacter, groupWithCharacter);
+				Group removed = groupService.removeCharacterFromGroup(testCharacter, groupWithCharacter);
 
-        assertTrue(removed);
+        assertTrue(removed != null);
         assertFalse(_characterPersistedInGroup(testCharacter, groupWithCharacter));
     }
 
