@@ -42,6 +42,10 @@
             <ul class="nav navbar-nav">
                 <li><a href="#" th:href="@{/groups}">My groups</a></li>
             </ul>
+			<ul class="nav navbar-nav" th:classappend="'role-' + ${currentUser.role}">
+				<li><a href="#" th:href="@{/users}">Users</a></li>
+			</ul>
+
             <ul class="nav navbar-nav navbar-right session-nav">
                 <span class="flex-container nav-session">
                 <span id="user" class="centered-nav-text white-text bold" th:text="${currentUser.Username}"></span>

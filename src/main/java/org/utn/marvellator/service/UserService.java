@@ -1,5 +1,6 @@
 package org.utn.marvellator.service;
 
+import org.utn.marvellator.ContentItem.UserContentitem;
 import org.utn.marvellator.model.SignupForm;
 import org.utn.marvellator.model.User;
 import org.utn.marvellator.model.UserSession;
@@ -24,5 +25,9 @@ public interface UserService {
     User getUserByEmail(String email);
 
     List<User> getAllUsers();
+
+		UserContentitem getUserContentItemById(String id);
+
+		List<UserContentitem> getAllUsersContentItems();
 
 }

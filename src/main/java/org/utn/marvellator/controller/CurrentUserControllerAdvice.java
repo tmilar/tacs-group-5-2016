@@ -11,6 +11,9 @@ import static java.util.Objects.isNull;
 public class CurrentUserControllerAdvice {
     @ModelAttribute("currentUser")
     public UserDetails getCurrentUser(Authentication authentication) {
-        return (isNull(authentication)) ? null : (UserDetails) authentication.getPrincipal();
+				if (authentication == null)
+					return null;
+				Object a = authentication.getPrincipal();
+				return (UserDetails)a;
     }
 }

@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.utn.marvellator.model.Role;
-import org.utn.marvellator.model.Session;
-import org.utn.marvellator.model.User;
-import org.utn.marvellator.model.UserSession;
+import org.utn.marvellator.ContentItem.UserContentitem;
+import org.utn.marvellator.model.*;
 import org.utn.marvellator.repository.UserRepository;
+import org.utn.marvellator.service.GroupService;
 import org.utn.marvellator.service.UserService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -21,9 +21,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private UserSession loggedUser;
+		@Autowired
+		GroupService groupService;
 
+	@Autowired
+	private UserSession loggedUser;
+
+		@Autowired
+		CurrentUserDetailsService currentUserDetailsService;
 
     /**
      * Validate and register a new user.
@@ -90,5 +95,20 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+		public UserContentitem getUserContentItemById(String id) {
+			User u = userRepository.findFirstById(id);
+			return new UserContentitem(u.getId(), u.getName(), u.getUserName(), u.getEmail(), u.getLastLogin(), groupService.getGroupsByCreator(currentUserDetailsService.getCurrentUser()).size(), u.getFavorites().size());
+		}
+
+		public List<UserContentitem> getAllUsersContentItems() {
+			List<User> users = userRepository.findAll();
+			List<UserContentitem> usersCI = new ArrayList<>();
+			for (User u : users){
+				UserContentitem uci = new UserContentitem(u.getId(), u.getName(), u.getUserName(), u.getEmail(), u.getLastLogin(), groupService.getGroupsByCreator(currentUserDetailsService.getCurrentUser()).size(), u.getFavorites().size());
+				usersCI.add(uci);
+			}
+			return usersCI;
+		}
 
 }
