@@ -16,4 +16,6 @@ public interface CharacterService {
     Integer getTotalCharacters() throws IOException;
 
     List<MarvelCharacter> charactersPage(Integer page) throws IOException;
+
+	/*Integer saveCharactersToDatabase() throws IOException;*/
 }

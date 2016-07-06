@@ -1,5 +1,7 @@
 package org.utn.marvellator.ContentItem;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,7 +17,7 @@ public class UserContentitem {
 
 	private String email;
 
-	private Date lastLogin;
+	private String lastLogin;
 
 	private int numberOfFavorites;
 
@@ -29,7 +31,7 @@ public class UserContentitem {
 		this.name = name;
 		this.userName = userName;
 		this.email = email;
-		this.lastLogin = lastLogin;
+		this.setLastLogin(lastLogin);
 		this.setNumberOfFavorites(numberOfFavorites);
 		this.setNumberOfGroups(numberOfGroups);
 	}
@@ -66,12 +68,13 @@ public class UserContentitem {
 		return email;
 	}
 
-	public Date getLastLogin() {
+	public String getLastLogin() {
 		return lastLogin;
 	}
 
 	public void setLastLogin(Date lastLogin) {
-		this.lastLogin = lastLogin;
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		this.lastLogin = df.format(lastLogin);;
 	}
 
 	public int getNumberOfFavorites() {

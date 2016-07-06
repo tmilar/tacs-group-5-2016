@@ -7,18 +7,7 @@
 </head>
 <body>
 <div th:fragment="pagecontent">
-    <div class="container transparent-black flex-aligned-items horiz  padding-bottom">
-        <label for="group-name" class="yellow-warning bold">Add new group</label>
-        <div class="col-lg-6">
-           <div class="input-group">
-               <input name="group-name" id="group-name" type="text"
-                      class="form-control" placeholder="Choose a name..."/>
-                <span class="input-group-btn">
-                <button type="submit" id="createGroup" class="btn btn-default">Add new group</button>
-                    </span>
-            </div>
-            </div>
-    </div>
+    
     <span th:if="${groups.empty}">
         No groups yet...<a href="">Create a new one?</a>
     </span>

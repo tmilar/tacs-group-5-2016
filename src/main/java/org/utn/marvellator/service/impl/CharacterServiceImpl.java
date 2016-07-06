@@ -161,4 +161,15 @@ public class CharacterServiceImpl implements CharacterService {
         Integer total = responseJson.getInt("total");
         return total;
     }
+
+		/*@Override
+		public Integer saveCharactersToDatabase() throws IOException{
+			int numberOfCharacters = getTotalCharacters();
+			int numberOfIterations = (int) Math.ceil(numberOfCharacters / 100.0);
+			List<MarvelCharacter> characters = new ArrayList<>();
+			for (int i = 0; i < numberOfIterations; i++){
+				characters.addAll(getCharactersPage(i*100, 100));
+			}
+			return characters.size();
+		}*/
 }

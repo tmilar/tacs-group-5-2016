@@ -54,4 +54,9 @@ public class CharacterServiceTest {
         MarvelCharacter marvelCharacter1 = characterService.getCharacterById("1009154");
         assertEquals(marvelCharacter1.getMarvelId(), "1009154");
     }
+
+		/*@Test
+		public void getAllCharacters_shouldMatchNumberOfCharactersFromApi() throws IOException {
+			assertEquals(characterService.getTotalCharacters(), characterService.saveCharactersToDatabase());
+		}*/
 }

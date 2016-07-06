@@ -41,7 +41,7 @@ public class UserRepositoryTest {
     @Test
     public void shouldSaveNewUsers() {
         userRepository.save(new User("test1"));
-        assertEquals(1, userRepository.count());
+        assertEquals(2, userRepository.count());
     }
 
     @Test

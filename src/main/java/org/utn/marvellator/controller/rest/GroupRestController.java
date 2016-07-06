@@ -49,9 +49,10 @@ public class GroupRestController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public void createGroup(@RequestBody GroupWrapper group) {
+    public HttpEntity<Group> createGroup(@RequestBody GroupWrapper group) {
         User user = currentUserDetailsService.getCurrentUser();
-        groupService.createGroup(group.getName(), user.getUserName());
+			  Group g = groupService.createGroup(group.getName(), user.getUserName());
+				return new ResponseEntity<Group>( g, HttpStatus.CREATED ) ;
     }
 
 		@RequestMapping(value = "/{userName}/{groupName}", method = RequestMethod.PUT)

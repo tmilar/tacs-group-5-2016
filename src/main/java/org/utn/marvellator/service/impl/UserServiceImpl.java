@@ -1,7 +1,9 @@
 package org.utn.marvellator.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.utn.marvellator.ContentItem.UserContentitem;
@@ -105,10 +107,20 @@ public class UserServiceImpl implements UserService {
 			List<User> users = userRepository.findAll();
 			List<UserContentitem> usersCI = new ArrayList<>();
 			for (User u : users){
-				UserContentitem uci = new UserContentitem(u.getId(), u.getName(), u.getUserName(), u.getEmail(), u.getLastLogin(), groupService.getGroupsByCreator(currentUserDetailsService.getCurrentUser()).size(), u.getFavorites().size());
+				int numberOfGroups = groupService.getGroupsByCreator(u).size();
+				UserContentitem uci = new UserContentitem(u.getId(), u.getName(), u.getUserName(), u.getEmail(), u.getLastLogin(), numberOfGroups, u.getFavorites().size());
 				usersCI.add(uci);
 			}
 			return usersCI;
+		}
+
+		@Override
+		public void onApplicationEvent(AuthenticationSuccessEvent event) {
+			String userName = ((UserDetails) event.getAuthentication().
+							getPrincipal()).getUsername();
+			User u = userRepository.findFirstByUserName(userName);
+			u.setLastLogin(new Date());
+			userRepository.save(u);
 		}
 
 }
