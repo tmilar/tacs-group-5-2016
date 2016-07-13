@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@Profile("${spring.profiles.active}")
+@Profile("openshift")
 @EnableMongoRepositories("org.utn.marvellator")
 public class SpringMongoConfig extends AbstractMongoConfiguration {
 
