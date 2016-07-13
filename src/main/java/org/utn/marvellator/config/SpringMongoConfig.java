@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@Profile("openshift")
-@EnableMongoRepositories("org.utn.marvellator.model")
+@Profile("${spring.profiles.active}")
+@EnableMongoRepositories("org.utn.marvellator")
 public class SpringMongoConfig extends AbstractMongoConfiguration {
 
     @Value("${spring.profiles.active}")
@@ -32,10 +32,10 @@ public class SpringMongoConfig extends AbstractMongoConfiguration {
         return new MongoClient(new MongoClientURI(mongoDbURI));
     }
 
-    @Override
-    public MongoMappingContext mongoMappingContext() throws ClassNotFoundException {
-        return super.mongoMappingContext();
-    }
+//    @Override
+//    public MongoMappingContext mongoMappingContext() throws ClassNotFoundException {
+//        return super.mongoMappingContext();
+//    }
 
     @Override
     protected String getDatabaseName() {
