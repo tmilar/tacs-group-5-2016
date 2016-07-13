@@ -11,8 +11,6 @@ import org.utn.marvellator.model.User;
 import org.utn.marvellator.repository.UserRepository;
 
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 @Component
 public class InitialDataLoader implements ApplicationListener<ContextRefreshedEvent> {
@@ -28,13 +26,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         if (alreadySetup)
             return;
 				Date date=new Date();
-				Timer timer = new Timer();
 
-				timer.schedule(new TimerTask(){
-					public void run(){
-						System.out.println("Im Running..."+new Date());
-					}
-				},date, 24*60*60*1000);
 				User admin = userRepository.findFirstByUserName("ADMIN");
 				if (admin != null)
 					return;
