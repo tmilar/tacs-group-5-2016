@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@Profile("openshift")
+//@Profile("openshift")
 @EnableMongoRepositories("org.utn.marvellator")
 public class SpringMongoConfig extends AbstractMongoConfiguration {
 
@@ -29,7 +29,7 @@ public class SpringMongoConfig extends AbstractMongoConfiguration {
     @Override
     @Bean
     public Mongo mongo() throws Exception {
-        String mongoDbURI = "mongodb://admin:gLQki2_Tntbu@127.5.25.2:27017/"; //hardcoding , seems to be injected wrongly...\
+        String mongoDbURI = "mongodb://admin:gLQki2_Tntbu@127.5.25.2:27017/marvellator"; //hardcoding , seems to be injected wrongly...\
         
         System.out.println("MondodbURI is: " + mongoDbURI);
         return new MongoClient(new MongoClientURI(mongoDbURI));
