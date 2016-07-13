@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  th:include="fragments/layout :: corelayout">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Groups of characters</title>
+</head>
+<body>
+<div th:fragment="pagecontent">
+	<div class="panel panel-default">
+		<br/>
+		<span th:text="${user.name}"></span>
+		<span th:text="${user.userName}"></span>
+		<span th:text="${user.email}"></span>
+		<span th:text="${user.numberOfFavorites}"></span>
+		<br/>
+		<table class="table table-bordered table-striped">
+			<caption>Groups</caption>
+			<thead>
+			<tr>
+				<td>#</td>
+				<td>Name</td>
+				<td>Characters</td>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:unless="${groups.empty}" th:each="group, stat : ${groups}">
+				<td th:text="${stat.count}">1 ...</td>
+				<td th:text="${group.name}"> </td>
+				<td>
+					<table class="table table-bordered table-striped">
+						<tbody>
+							<tr th:unless="${group.characters.empty}" th:each="character, stat : ${group.characters}">
+								<td th:text="${character.name}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+     th:include="fragments/layout :: corelayout">
+<head>
+    <title>USERS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div th:fragment="pagecontent">
+    <div class="panel panel-default">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th colspan="4" th:unless="${user != null}">User doesn't exist!</th>
+                    <th colspan="4" th:if="${user != null}" th:text="${user.userName}"></th>
+                </tr>
+            </thead>
+            <tbody th:if="${user != null}">
+                <tr>
+                    <td>Username:</td>
+                    <td th:if="${user != null}" th:text="${user.userName}"></td>
+                </tr>
+
+                <tr>
+                    <td>Number of favorites:</td>
+                    <td th:if="${nFavorites != null}" th:text="${nFavorites}"></td>
+                    <td th:if="${nFavorites == null}">0</td>
+                </tr>
+
+                <tr>
+                    <td>Groups created:</td>
+                    <td th:if="${nGroupsCreated != null}" th:text="${nGroupsCreated}"></td>
+                    <td th:if="${nGroupsCreated == null}">0</td>
+                </tr>
+
+                <tr>
+                    <td>Last Login:</td>
+                    <td th:if="${user.lastLogin != null}" th:text="${user.lastLogin}"></td>
+                    <td th:if="${user.lastLogin == null}">Never</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

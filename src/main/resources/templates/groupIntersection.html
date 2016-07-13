@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:include="fragments/layout :: corelayout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Groups of characters</title>
+</head>
+<body>
+<div th:fragment="pagecontent">
+    
+    <span th:if="${groups.empty}">
+        No groups yet...<a href="">Create a new one?</a>
+    </span>
+    <div class="panel panel-default">
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td>#</td>
+            <td>Name</td>
+            <td>Creator</td>
+			<td>Intersect</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${groups.empty}">
+            <td colspan="4">No groups</td>
+            </tr>
+        <tr th:unless="${groups.empty}" th:each="group, stat : ${groups}">
+            <td th:text="${stat.count}">1 ...</td>
+            <td th:text="${group.name}"></td>
+			<td th:text="${group.creator}"></td>
+            <td>
+				<input type="checkbox" name="intersectGroupChk" class="intersectGroupChk" th:value="${group.id}" /><br />
+            </td>
+        </tr>
+        </tbody>
+    </table>
+	<button type="button" class="intersectGroupButton" >Intersectar</button>
+
+		<table class="table table-bordered table-striped intersectedCharacters">
+			<thead class="intersectedCharactersTableHead">
+			<tr>
+				<td>#</td>
+				<td>Marvel Id</td>
+				<td>Character Name</td>
+			</tr>
+			</thead>
+			<tbody class="intersectedCharactersTableBody">
+			</tbody>
+		</table>
+        </div>
+</div>
+</body>
+</html>

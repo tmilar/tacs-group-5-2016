@@ -1,0 +1,139 @@
+.custom-container, .flex-aligned-items {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-aligned-items.horiz,
+.flex-row{
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.flex-aligned-items.center {
+    justify-content: center;
+}
+
+.yellow-warning{
+    color: #f0ad4e;
+    border-color: navajowhite;
+}
+
+
+.padding-bottom{
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+
+.flex-container.nav-session{
+    padding: 0;
+    justify-content: space-around;
+    align-items: center;
+}
+.centered-nav-text{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.font-small {
+    font-size: 12px;
+}
+
+.marvellator-background {
+    background: url("http://i1186.photobucket.com/albums/z363/bpetracca/WDF_586809_zpsz5gavegq.jpg");
+    background-size: cover;
+}
+
+.light-link {
+    color: lightblue;
+}
+
+.custom-container.small {
+    width: 30%;
+}
+
+.custom-container.half {
+    width: 50%;
+}
+
+.custom-container.x-small {
+    width: 20%;
+}
+
+.panel-body.medium {
+    padding: 10%;
+}
+
+.panel-default.transparent,
+.transparent-black{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.jumbotron.white-text,
+.white-text {
+    color: whitesmoke;
+}
+
+.session-nav{
+    width: 25%;
+}
+
+.text-small {
+    font-size: 11px;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 7%;
+}
+
+.form-group.margin {
+    margin-left: unset;
+    margin-right: unset;
+}
+
+.navbar.no-margin {
+    margin-bottom: unset;
+}
+
+.item-form-margin {
+    margin: 0 auto 20px;
+}
+
+.body-margins {
+    padding: 7%;
+    background-size: cover;
+}
+
+.character-name {
+	width: 22%;
+}
+
+.currentCharactersTableBody {
+	background-color: white;
+	color: black;
+}
+
+.currentCharactersTableHead {
+	background-color: white;
+	color: black;
+}
+
+.role-USER {
+	display: none;
+}
+
+.role-ADMIN {
+	display: block;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  th:include="fragments/layout :: corelayout">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Groups of characters</title>
+</head>
+<body>
+<div th:fragment="pagecontent">
+	<div class="panel panel-default">
+		<table class="table table-bordered table-striped">
+			<thead>
+			<tr>
+				<td>#</td>
+				<td>Name</td>
+				<td>Username</td>
+				<td>Email</td>
+				<td>Last login</td>
+				<td># Groups</td>
+				<td># Favorites</td>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:unless="${users.empty}" th:each="user, stat : ${users}">
+				<td th:text="${stat.count}">1 ...</td>
+				<td><a th:href="@{/users/__${user.id}__}" th:text="${user.name}">user name ...</a></td>
+				<td th:text="${user.userName}">userName name ..</td>
+				<td th:text="${user.email}">email name ..</td>
+				<td th:text="${user.lastLogin}">lastLogin ..</td>
+				<td th:text="${user.numberOfFavorites}">numberOfFavorites ..</td>
+				<td th:text="${user.numberOfGroups}">numberOfGroups ..</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>

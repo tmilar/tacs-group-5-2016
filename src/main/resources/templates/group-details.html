@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Group detail</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link href="../../static/css/bootstrap.min.css" rel="stylesheet" media="screen"
+		  th:href="@{/css/bootstrap.min.css}"/>
+	<link href="../../static/css/core.css" rel="stylesheet" media="screen"
+		  th:href="@{/css/core.css}"/>
+	<script src="../../static/js/jquery.js"
+			th:src="@{/js/jquery.js}"></script>
+	<script src="../../static/js/bootstrap.min.js"
+			th:src="@{/js/bootstrap.min.js}"></script>
+	<script src="../../static/js/marvellator.js"
+			th:src="@{/js/marvellator.js}"></script>
+	<script src="../../static/js/groupDetails.js"
+			th:src="@{/js/groupDetails.js}"></script>
+	<link href="../../static/css/styles.css" rel="stylesheet" media="screen"
+		  th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="navbar">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Marvellator 2016</a>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="#">Home</a></li>
+			</ul>
+			<ul class="nav navbar-nav">
+				<li><a href="#" th:href="@{/characters}">Marvel Characters</a></li>
+			</ul>
+			<ul class="nav navbar-nav">
+				<li><a href="#" th:href="@{/favorites}">My favorites</a></li>
+			</ul>
+			<ul class="nav navbar-nav">
+				<li><a href="#" th:href="@{/groups}">My groups</a></li>
+			</ul>
+			<ul class="nav navbar-nav" th:classappend="'role-' + ${currentUser.role}">
+				<li><a href="#" th:href="@{/users}">Users</a></li>
+			</ul>
+			<ul class="nav navbar-nav" th:classappend="'role-' + ${currentUser.role}">
+				<li><a href="#" th:href="@{/groupIntersection}">Intersectar grupos</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right session-nav">
+                <span class="flex-container nav-session">
+                <span id="user" class="centered-nav-text white-text bold" th:text="${currentUser.Username}"></span>
+                <span class="centered-nav-text"><form id="logoutForm" method="POST" th:action="@{/logout}" role="form">
+					<button type="submit" class="btn btn-warning">Logout</button>
+				</form></span>
+                    </span>
+			</ul>
+		</div>
+		<!--/.nav-collapse -->
+	</div>
+</nav>
+<div th:fragment="pagecontent">
+	<div style="color:white">
+		<h1 th:text="${group.name}"></h1>
+
+		<p th:if="${group.characters.empty}">
+			No characters yet...<a href="">Add a new one?</a>
+		</p>
+
+		<table class="table table-bordered table-striped currentCharacters">
+			<thead class="currentCharactersTableHead">
+			<tr>
+				<td>#</td>
+				<td>Icon</td>
+				<td>Character Name</td>
+				<td>Acciones</td>
+			</tr>
+			</thead>
+			<tbody class="currentCharactersTableBody">
+			</tbody>
+		</table>
+	</div>
+
+	<div class="character-group-container">
+		<div class="container transparent-black flex-aligned-items horiz  padding-bottom">
+			<label for="search-character" class="yellow-warning bold">Search for a character</label>
+			<div class="col-lg-6">
+				<div class="input-group">
+					<input id="search-character" type="text" class="form-control" placeholder="Search for..."/>
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		</button>
+      </span>
+				</div><!-- /input-group -->
+			</div><!-- /.col-lg-6 -->
+		</div>
+		<div class="panel panel-default">
+			<table class="table table-bordered table-striped charactersForGroup">
+				<thead>
+				<tr>
+					<td>Marvel ID</td>
+					<td>Name</td>
+					<td>Status</td>
+				</tr>
+				</thead>
+				<tbody class="charactersForGroupBody">
+				<tr class="character-table">
+					<td class="character-marvel-id"></td>
+					<td class="character-name"></td>
+					<td>
+						<button id="addCharacterToGroup" type="button" class="btn btn-default addCharacterToGroup">Add to group</button>
+						<button id="removeCharacterFromGroup" type="button" class="btn btn-default removeFromGroup">Remove from group</button>
+					</td>
+				</tr>
+				</tbody>
+
+			</table>
+			<div class="flex-aligned-items horiz center">
+				<span class="page"> </span>
+					<button type="button" class="btn btn-default previousPage">Previous</button>
+					<button type="button" class="btn btn-default nextPage">Next</button>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
