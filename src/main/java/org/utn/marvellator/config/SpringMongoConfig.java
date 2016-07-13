@@ -20,38 +20,16 @@ public class SpringMongoConfig extends AbstractMongoConfiguration {
     @Value("${spring.profiles.active}")
     private String profileActive;
 
-    @Value("${spring.data.mongodb.host}")
-    private String mongoHost;
-
-    @Value("${spring.data.mongodb.port}")
-    private Integer mongoPort;
-
     @Value("${spring.data.mongodb.database}")
     private String dbName;
 
-    @Value("${spring.data.mongodb.username}")
-    private String  userName;
-
-    @Value("${spring.data.mongodb.password}")
-    private String  password;
+    @Value("${spring.data.mongodb.uri}")
+    private String mongoDbURI;
 
     @Override
     @Bean
     public Mongo mongo() throws Exception {
-
-        ServerAddress serverAddress = new ServerAddress(mongoHost, mongoPort);
-
-        List<MongoCredential> credentials = new ArrayList<>();
-        credentials.add(MongoCredential.createScramSha1Credential(
-                userName,
-                dbName,
-                password.toCharArray()
-        ));
-
-        MongoClientOptions options = new MongoClientOptions.Builder()
-                .build();
-
-        return new MongoClient(serverAddress, credentials, options);
+        return new MongoClient(new MongoClientURI(mongoDbURI));
     }
 
     @Override
